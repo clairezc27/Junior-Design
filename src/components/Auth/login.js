@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 
 const Login = () => {
     return (
@@ -11,17 +11,17 @@ const Login = () => {
         }}
         >
         <Form.Item
-            name="username"
+            name="email"
             rules={[
             {
                 required: true,
-                message: 'Please input your Username!',
+                message: 'Please input your email!',
             },
             ]}>
             <Input
-            autocomplete="username"
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
+            autocomplete="email"
+            prefix={<MailOutlined className="site-form-item-icon" />}
+            placeholder="Email"
             />
         </Form.Item>
 

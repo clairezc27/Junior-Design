@@ -9,6 +9,30 @@ const Signup = () => {
         scrollToFirstError
         >
         <Form.Item
+            name="first"
+            rules={[
+            {
+                required: true,
+                message: 'Please input your first name!',
+                whitespace: true,
+            },
+            ]}>
+            <Input autocomplete="username" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="First name" />
+        </Form.Item>
+
+        <Form.Item
+            name="last"
+            rules={[
+            {
+                required: true,
+                message: 'Please input your last name!',
+                whitespace: true,
+            },
+            ]}>
+            <Input autocomplete="username" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Last name" />
+        </Form.Item>
+
+        <Form.Item
             name="email"
             rules={[
             {
@@ -21,18 +45,6 @@ const Signup = () => {
             },
             ]}>
             <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
-        </Form.Item>
-
-        <Form.Item
-            name="username"
-            rules={[
-            {
-                required: true,
-                message: 'Please input your username!',
-                whitespace: true,
-            },
-            ]}>
-            <Input autocomplete="username" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
         </Form.Item>
 
         <Form.Item
