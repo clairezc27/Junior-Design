@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Login from './components/Auth/login'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'antd/dist/antd.css';
 import './App.css';
 
 function App() {
@@ -14,21 +17,19 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <p>The current time is {currentTime}</p>
+        
+
+        <Router>
+          <div>
+            <Switch>
+              <Route exact path="/login/" component={Login} />
+            </Switch>
+          </div>
+        </Router>
       </header>
     </div>
+
+    
   );
 }
 
