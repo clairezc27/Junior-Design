@@ -5,8 +5,9 @@ import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 const Signup = () => {
     return (
         <Form
-        name="register"
-        scrollToFirstError
+            className="auth"
+            name="register"
+            scrollToFirstError
         >
         <Form.Item
             name="first"

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Login from './components/Auth/login';
 import Signup from './components/Auth/signup';
+import Home from './components/Home/home';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import './App.css';
@@ -21,6 +22,7 @@ function App() {
         <Router>
           <div>
             <Switch>
+              <Route exact path="/" component={Home} />
               <Route exact path="/login/" component={Login} />
               <Route exact path="/signup/" component={Signup} />
             </Switch>

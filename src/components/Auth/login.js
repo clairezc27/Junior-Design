@@ -1,10 +1,11 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
 
 const Login = () => {
     return (
         <Form
+        className="auth"
         name="normal_login"
         initialValues={{
             remember: true,
