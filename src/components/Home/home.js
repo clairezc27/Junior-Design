@@ -20,7 +20,9 @@ const Home = () => {
                 <br />
                 <p>blah blah blah</p>
             </Col>
-            <Divider type="vertical" />
+            <Col style={{ height: "70vh" }}>
+                <Divider type="vertical" style={{height: "100%"}}/>
+            </Col>
             <Col flex={1}>
                 <Link to="/signup">
                     <Button type="primary" style={{ marginBottom: "20px" }}>Sign Up</Button>
