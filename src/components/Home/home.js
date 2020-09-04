@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
     return (
-        <>
         <div className="Home">
             <div className="Home-header">
                 <Row justify="center">
@@ -34,7 +33,6 @@ const Home = () => {
             </Col>
           </Row>
         </div>
-        </>
     )
 }
 
