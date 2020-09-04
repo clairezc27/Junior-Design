@@ -1,8 +1,14 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
+    const history = useHistory();
+    const submit = () => {
+        history.push('/dashboard');
+    }
+
     return (
         <Form
             className="auth"
@@ -10,6 +16,7 @@ const Login = () => {
             initialValues={{
                 remember: true,
             }}
+            onFinish={submit}
         >
             <Form.Item
                 name="email"
