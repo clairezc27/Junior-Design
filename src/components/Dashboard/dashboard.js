@@ -10,7 +10,7 @@ const Dashboard = () => {
                 <Row justify="center">
                     Social Media Mistake Eraser
                     <Tooltip className="user-btn" title="User Profile">
-                        <Button type="primary" shape="circle" size="large" icon={<UserOutlined />} />
+                        <Button type="primary" shape="circle" size="large" icon={<UserOutlined style={{verticalAlign: "text-top"}}/>} />
                     </Tooltip>
                 </Row>
             </div>
