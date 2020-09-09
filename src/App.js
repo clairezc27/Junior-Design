@@ -4,6 +4,7 @@ import Login from './components/Auth/login';
 import Signup from './components/Auth/signup';
 import Home from './components/Home/home';
 import Dashboard from './components/Dashboard/dashboard';
+import NewSearch from './components/New Search/newsearch'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import './App.css';
@@ -27,6 +28,7 @@ function App() {
               <Route exact path="/login/" component={Login} />
               <Route exact path="/signup/" component={Signup} />
               <Route exact path="/dashboard/" component={Dashboard} />
+              <Route exact path="/new-search/" component={NewSearch} />
             </Switch>
           </div>
         </Router>
