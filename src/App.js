@@ -4,7 +4,7 @@ import Login from './components/Auth/login';
 import Signup from './components/Auth/signup';
 import Home from './components/Home/home';
 import Dashboard from './components/Dashboard/dashboard';
-import NewSearch from './components/New Search/newsearch'
+import NewSearch from './components/NewSearch/newsearch'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import './App.css';
