@@ -34,6 +34,7 @@
   font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
   font-size: 50px;
   font-weight: 500;
+  margin-top: .5em;
 }
 
 .auth {
