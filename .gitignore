@@ -6,6 +6,7 @@
 .pnp.js
 venv
 package-lock.json
+yarn.lock
 
 # testing
 /coverage
