@@ -1,5 +1,6 @@
 import React from 'react';
-import { Row, Col, Button } from 'antd';
+import { Row, Col } from 'antd';
+import { Button } from 'react-bootstrap';
 import Box from '../Common/box.js';
 import Header from '../Common/header.js'
 

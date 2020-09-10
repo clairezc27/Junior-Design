@@ -1,5 +1,6 @@
 import React from 'react';
-import { Row, Col, Divider, Button } from 'antd';
+import { Row, Col, Divider } from 'antd';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Header from './../Common/header.js'
 
