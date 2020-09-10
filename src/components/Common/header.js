@@ -1,11 +1,10 @@
 import React from 'react';
-import { Nav, Navbar, Button } from 'react-bootstrap';
+import { Navbar, Button } from 'react-bootstrap';
 import { FaUser } from 'react-icons/fa';
 import { IconContext } from "react-icons";
 
-const NewSearch = () => {
+const Header = () => {
     return (
-        <>
         <Navbar  expand="xl" sticky="top" bg="primary" variant="dark" className="justify-content-between">
             <Navbar.Brand href="/dashboard" style={{ fontSize: "36px"}}>Social Media Mistake Eraser</Navbar.Brand>
             <Button className="justify-content-end">
@@ -14,20 +13,7 @@ const NewSearch = () => {
                 </IconContext.Provider>
             </Button>
         </Navbar>
-        <h1 className="Home-header">New Search</h1>
-        <Nav variant="tabs" defaultActiveKey="1">
-            <Nav.Item>
-                <Nav.Link eventKey="1">Step 1</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="2">Step 2</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="3">Step 3</Nav.Link>
-            </Nav.Item>
-        </Nav>
-        </>
     );
 };
 
-export default NewSearch;
+export default Header;
