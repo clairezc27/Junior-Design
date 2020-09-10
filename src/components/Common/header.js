@@ -5,8 +5,8 @@ import { IconContext } from "react-icons";
 
 const Header = () => {
     return (
-        <Navbar  expand="xl" sticky="top" bg="primary" variant="dark" className="justify-content-between">
-            <Navbar.Brand href="/dashboard" style={{ fontSize: "36px"}}>Social Media Mistake Eraser</Navbar.Brand>
+        <Navbar expand="xl" sticky="top" bg="primary" variant="dark" className="justify-content-between">
+            <Navbar.Brand href="/dashboard" style={{ fontSize: "36px"}}>Don't fucking say bad shit on twitter</Navbar.Brand>
             <Button className="justify-content-end">
                 <IconContext.Provider value={{ style: { fontSize: "20px" } }}>
                     <FaUser />
