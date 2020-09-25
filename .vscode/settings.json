@@ -1,0 +1,5 @@
+{
+    "python.autoComplete.extraPaths": ["./api"],
+    "python.pythonPath": "/usr/local/bin/python",
+    "python.jediEnabled": false
+}
