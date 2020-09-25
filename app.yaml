@@ -1,5 +1,5 @@
-runtime: python
-# threadsafe: true
+runtime: python27
+threadsafe: true
 entrypoint: gunicorn -b :8080 main:app
 
 # runtime_config:
