@@ -1,80 +1,68 @@
-{
-	"statuses": [
-        {
-            "created_at": "Sun Feb 25 18:11:01 +0000 2018",
-            "id": 967844427480911872,
-            "id_str": "967844427480911872",
-            "text": "This is a regular clean tweet",
-            "truncated": false,
-            "metadata": {
-                "result_type": "popular",
-                "iso_language_code": "en"
-            },
-            "in_reply_to_status_id": null,
-            "in_reply_to_status_id_str": null,
-            "in_reply_to_user_id": null,
-            "in_reply_to_user_id_str": null,
-            "in_reply_to_screen_name": null,
-            "user": {
-                "id": 11343282,
-                "id_str": "11343282",
-                "name": "Jeff",
-                "translator_type": "regular"
-            },
-            "geo": null,
-            "coordinates": null,
-            "place": null,
-            "contributors": null,
-            "is_quote_status": false,
-            "retweet_count": 988,
-            "favorite_count": 3875,
-            "favorited": false,
-            "retweeted": false,
-            "possibly_sensitive": false,
-            "lang": "en"
+[
+    {
+        "created_at": "Sun Feb 25 18:11:01 +0000 2018",
+        "id": 967844427480911872,
+        "id_str": "967844427480911872",
+        "text": "This is a regular clean tweet",
+        "truncated": false,
+        "metadata": {
+            "result_type": "popular",
+            "iso_language_code": "en"
         },
-        {   
-            "created_at": "Sun Feb 18 06:12:01 +0000 2020",
-            "id": 967844427580911872,
-            "id_str": "967844427580911872",
-            "text": "this tweet includes flagged language: fuck",
-            "truncated": false,
-            "metadata": {
-                "result_type": "popular",
-                "iso_language_code": "en"
-            },
-            "in_reply_to_status_id": null,
-            "in_reply_to_status_id_str": null,
-            "in_reply_to_user_id": null,
-            "in_reply_to_user_id_str": null,
-            "in_reply_to_screen_name": null,
-            "user": {
-                "id": 11343282,
-                "id_str": "11343282",
-                "name": "Jeff",
-                "translator_type": "regular"
-            },
-            "geo": null,
-            "coordinates": null,
-            "place": null,
-            "contributors": null,
-            "is_quote_status": false,
-            "retweet_count": 123,
-            "favorite_count": 456,
-            "favorited": false,
-            "retweeted": false,
-            "possibly_sensitive": true,
-            "lang": "en"
-        }
-    ],
-    "search_metadata": {
-        "completed_in": 0.057,
-        "max_id": 0,
-        "max_id_str": "0",
-        "next_results": "?max_id=967844427580911872&q=Jeff&result_type=popular",
-        "query": "Jeff",
-        "count": 2,
-        "since_id": 0,
-        "since_id_str": "0"
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 11343282,
+            "id_str": "11343282",
+            "name": "Jeff",
+            "translator_type": "regular"
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 988,
+        "favorite_count": 3875,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "lang": "en"
+    },
+    {   
+        "created_at": "Sun Feb 18 06:12:01 +0000 2020",
+        "id": 967844427580911872,
+        "id_str": "967844427580911872",
+        "text": "this tweet includes flagged language: fuck",
+        "truncated": false,
+        "metadata": {
+            "result_type": "popular",
+            "iso_language_code": "en"
+        },
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 11343282,
+            "id_str": "11343282",
+            "name": "Jeff",
+            "translator_type": "regular"
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 123,
+        "favorite_count": 456,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": true,
+        "lang": "en"
     }
-}
+]

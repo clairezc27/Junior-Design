@@ -1,13 +1,13 @@
 
 import json
 
-with open('twoTweets.json', 'r') as f:
+with open('tweets.json', 'r') as f:
   data = json.load(f)
 
 with open('inappropriatelist.txt', 'r') as il:
   inapp = il.readlines()
 
-for i in data["statuses"]:    
+for i in data:    
 	tweet = i["text"]
 	for word in inapp:
 		if word.rstrip('\n') in tweet:
