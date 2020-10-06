@@ -48,16 +48,15 @@ def main():
     headers = create_headers(bearer_token)
     json_response = connect_to_endpoint(url, headers)
     data = json_response["data"]
-    # print(data)
     for i in data:    
-        # print(i)
         tweet = i["text"]
         for word in inapp:
             if word.rstrip('\n') in tweet:
-                # date = i["created_at"]
+                id = i["id"]
                 print(json.dumps(tweet, indent = 4, sort_keys=True))
-                # print(json.dumps(date, indent = 4, sort_keys=True))
-    print(json.dumps(json_response, indent=4, sort_keys=True))
+                print(json.dumps(id, indent = 4, sort_keys=True))
+                break
+    # print(json.dumps(json_response, indent=4, sort_keys=True))
 
 
 if __name__ == "__main__":
