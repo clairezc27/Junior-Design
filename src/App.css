@@ -8,10 +8,10 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
 }
 
 .App-intro {
@@ -22,3 +22,44 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.Home {
+  align-items: center;
+  text-align: center;
+}
+
+.Home-header {
+  text-align: center;
+  font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+  font-size: 50px;
+  font-weight: 500;
+  margin-top: .5em;
+}
+
+.auth {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-btn {
+  position: absolute !important;
+  right: 15px !important;
+  margin-top: 15px;
+}
+
+.box {
+  border-radius: 8px;
+  background-color: #61dafb;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 30px;
+}
+
+.review {
+  text-align: left;
+  margin-left: 50px;
+}
+
