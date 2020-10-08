@@ -1,0 +1,9 @@
+apiKey = "ZDaZqd5NH7unIbngkRLNMMBf3"
+
+apiSecretKey = "9hL7DGNpLwv98xkrkuNmtUskAqcnfl3yukTBKq84Ncv7aLz6iu"
+
+accessToken = "1117589903053922305-AKqJRf3kmCrdjYhX00YsjJIonLQFFY"
+
+accessSecretToken = "1DbNFEJ25uUcfOX6EwA2VHHMVXM1kgIsqBZVylt2EdLog"
+
+bearerToken = "AAAAAAAAAAAAAAAAAAAAAGcpIAEAAAAAYwak9qvxg6jmstpttxy%2FbINPPRw%3DfNENXGFTKONDuHjTqZJFme2jrOVHNVfOnNFiqZmyiNSWpTCGwp"
