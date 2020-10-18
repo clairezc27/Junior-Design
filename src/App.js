@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./components/home";
+import Dashboard from "./components/dashboard.js";
 import logo from './logo.svg';
 import './App.css';
 import 'antd/dist/antd.css';
@@ -14,7 +15,8 @@ class App extends Component {
         <Router>
           <div>
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route path="/" component={Home} />
+              <Route path="/dashboard" component={Dashboard} />
             </Switch>
           </div>
         </Router>
