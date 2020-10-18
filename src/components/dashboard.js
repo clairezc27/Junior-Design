@@ -27,7 +27,7 @@ const Dashboard = () => {
       </Row>
       <Row>
         <Col span={8}>
-          Box txt="8/27/2020"/>
+          <Box txt="8/27/2020"/>
         </Col>
         <Col span={8}>
           <Box txt="@brett"/>

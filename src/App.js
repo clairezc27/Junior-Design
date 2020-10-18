@@ -6,6 +6,10 @@ import logo from './logo.svg';
 import './App.css';
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Row, Col } from 'antd';
+import { Button } from 'react-bootstrap';
+import Box from './components/common/box.js';
+import Header from './components/common/header.js'
 
 class App extends Component {
   render() {
@@ -15,8 +19,8 @@ class App extends Component {
         <Router>
           <div>
             <Switch>
-              <Route path="/" component={Home} />
-              <Route path="/dashboard" component={Dashboard} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/dashboard" component={Dashboard} />
             </Switch>
           </div>
         </Router>
