@@ -11,6 +11,9 @@ def index():
 @app.route('/dashboard')
 def dashboard():
     return app.send_static_file('index.html')
+@app.route('/new-search')
+def new_search():
+    return app.send_static_file('index.html')
 
 
 # @app.route('/<path:path>')
