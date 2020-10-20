@@ -10,7 +10,7 @@ const Home = () => {
     <div className="Home">
       <Header />
       <Row style={{marginTop: "50px"}}>
-        <Col style={{paddingTop: "25px", textAlign: "left"}} flex={3}>
+        <Col style={{textAlign: "left"}} flex={3}>
           <div className="home-txt">
           <br />
           <h3>About</h3>
