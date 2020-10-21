@@ -1,11 +1,16 @@
 import os
+import jwt
 from flask import Flask, render_template, jsonify, request
+from flask_cors import CORS
+from flask_bcrypt import Bcrypt
 # from google.appengine.api import users
 # from google.auth import app_engine
 # credentials = app_engine.Credentials()
 
 app = Flask(__name__, static_folder='build/', static_url_path='/')
-app.debug = 'DEBUG' in os.environ
+CORS(app)
+bcrypt = Bcrypt()
+# app.debug = 'DEBUG' in os.environ
 
 
 @app.route('/')
@@ -20,6 +25,9 @@ def new_search():
 @app.route('/review')
 def review():
     return app.send_static_file('index.html')
+@app.route('/login')
+def login():
+    return app.send_static_file('index.html')
 
 
 # @app.route('/<path:path>')
@@ -29,9 +37,3 @@ def review():
 # @app.route('/', defaults={'path': ''})
 # @app.route('/<path:path>')
 # def catch_all(path):
-#   return render_template("index.html")
-if __name__ == '__main__':
-    # This is used when running locally only. When deploying to Google App
-    # Engine, a webserver process such as Gunicorn will serve the app. This
-    # can be configured by adding an `entrypoint` to app.yaml.
-    app.run(host='127.0.0.1', port=5000, debug=True)
