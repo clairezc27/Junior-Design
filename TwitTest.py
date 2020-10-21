@@ -60,9 +60,35 @@ def printResults(handle):
                     print(json.dumps(id, indent = 4, sort_keys=True))
                     break
 
+def getData(handle):
+    bearer_token = auth()
+    url = "https://api.twitter.com/2/tweets/search/recent?query=from:{}".format(
+        handle
+    )
+    headers = {"Authorization": "Bearer {}".format(bearer_token)}
+    response = requests.request("GET", url, headers=headers)
+    if response.status_code != 200:
+        raise Exception(response.status_code, response.text)
+    json_response =  response.json()
+
+    tweets = []
+    tweetIDs = []
+    if json_response['meta']['result_count'] > 0:
+        data = json_response["data"]
+        for i in data:    
+            tweet = i["text"]
+            for word in inapp:
+                if word.rstrip('\n') in tweet.lower():
+                    tid = i["id"]
+                    tweets.append(tweet)
+                    tweetIDs.append(tid)
+                    break
+    return tweets, tweetIDs
 
 def main():
-    printResults("bongo3312")
+    a, b = getData("bongo3312")
+    print(a)
+    print(b)
 
 
 if __name__ == "__main__":
