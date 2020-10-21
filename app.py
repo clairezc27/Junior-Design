@@ -28,6 +28,9 @@ def review():
 @app.route('/login')
 def login():
     return app.send_static_file('index.html')
+@app.route('/signup')
+def signup():
+    return app.send_static_file('index.html')
 
 
 # @app.route('/<path:path>')
