@@ -3,15 +3,36 @@ import jwt
 from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
-# from google.appengine.api import users
-# from google.auth import app_engine
-# credentials = app_engine.Credentials()
+from firebase import Firebase
 
 app = Flask(__name__, static_folder='build/', static_url_path='/')
+config = {
+  "apiKey": "AIzaSyBT5w99MAZ9DNHpAE5QrvJGIzIDrTE1Uv0",
+  "authDomain": "twitter-mistake.firebaseapp.com",
+  "databaseURL": "https://twitter-mistake.firebaseio.com",
+  "storageBucket": "twitter-mistake.appspot.com"
+}
 CORS(app)
 bcrypt = Bcrypt()
+firebase = Firebase(config)
 # app.debug = 'DEBUG' in os.environ
 
+@app.route('/apis/sign-up', methods=['POST'])
+def store_user():
+    email="email"
+    password="password"
+    # email = request.json['email']
+    # username = request.json['username']
+    auth = firebase.auth()
+    user = auth.sign_in_with_email_and_password(email, password)
+    db = firebase.database()
+
+    data = {
+        "name": "Joe Tilsed"
+    }
+
+    results = db.child("users").push(data, user['idToken'])
+    return 200
 
 @app.route('/')
 def index():
