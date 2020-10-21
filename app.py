@@ -4,6 +4,13 @@ from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from firebase import Firebase
+import requests
+import json
+from twitter import *
+import config
+
+with open('inappropriatelist.txt', 'r') as il:
+  inapp = il.readlines()
 
 app = Flask(__name__, static_folder='build/', static_url_path='/')
 config = {
@@ -33,6 +40,31 @@ def store_user():
 
     results = db.child("users").push(data, user['idToken'])
     return 200
+
+def get_data(handle):
+    bearer_token = auth()
+    url = "https://api.twitter.com/2/tweets/search/recent?query=from:{}".format(
+        handle
+    )
+    headers = {"Authorization": "Bearer {}".format(bearer_token)}
+    response = requests.request("GET", url, headers=headers)
+    if response.status_code != 200:
+        raise Exception(response.status_code, response.text)
+    json_response =  response.json()
+
+    tweets = []
+    tweetIDs = []
+    if json_response['meta']['result_count'] > 0:
+        data = json_response["data"]
+        for i in data:    
+            tweet = i["text"]
+            for word in inapp:
+                if word.rstrip('\n') in tweet.lower():
+                    tid = i["id"]
+                    tweets.append(tweet)
+                    tweetIDs.append(tid)
+                    break
+    return tweets, tweetIDs
 
 @app.route('/')
 def index():
