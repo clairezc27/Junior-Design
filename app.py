@@ -47,7 +47,7 @@ def store_data(tweets, tids):
     return 200
 
 def get_data(handle):
-    bearer_token = auth()
+    bearer_token = config.bearerToken
     url = "https://api.twitter.com/2/tweets/search/recent?query=from:{}".format(
         handle
     )
