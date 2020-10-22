@@ -35,6 +35,17 @@ def store_user():
     
     return 200
 
+@app.route('/apis/twitter', methods=['POST'])
+def store_data(tweets, tids):
+
+    auth = firebase.auth()
+    user = 1 #get user somehow
+    batch = 1 #get highest number batch from list, add one to it 
+    for i in range(len(tweets)):
+        auth.add_flagged_tweet(tids[i], tweets[i], user, batch)
+
+    return 200
+
 def get_data(handle):
     bearer_token = auth()
     url = "https://api.twitter.com/2/tweets/search/recent?query=from:{}".format(
