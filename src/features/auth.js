@@ -20,7 +20,7 @@ const usersSlice = createSlice({
         console.error(e);
       }
     },
-    loginStart(state, action) {
+    loginStart(state, _action) {
       state.isLoggingIn = true;
       delete state.loginError;
     },
@@ -38,19 +38,16 @@ const usersSlice = createSlice({
       localStorage.removeItem('currentUser');
       delete state.currentUser;
     },
-    signupStart(state, action) {
-      state.isLoggingIn = true;
-      delete state.loginError;
+    signupStart(state, _action) {
+      state.isSigningUp = true;
+      delete state.signupError;
     },
-    signupSucceeded(state, action) {
-      localStorage.setItem('currentUser', JSON.stringify(action.payload));
-
-      state.isLoggingIn = false;
-      state.currentUser = action.payload;
+    signupSucceeded(state) {
+      state.isSigningUp = false;
     },
-    signupFailed(state) {
-      state.isLoggingIn = false;
-      state.loginError = 'Signup Failed';
+    signupFailed(state, action) {
+      state.isSigningUp = false;
+      state.signupError = action.payload;
     },
     logout(state) {
       localStorage.removeItem('currentUser');
@@ -74,14 +71,14 @@ export const login = (username, password) => async dispatch => {
   }
 }
 
-export const signup = (username, password) => async dispatch => {
+export const signUp = (email, password) => async dispatch => {
   try {
-    dispatch(signupStart())
-    const response = await apis.signup(username, password)
-    dispatch(signupSucceeded(response))
+    dispatch(signupStart());
+    await apis.signup(email, password);
+    dispatch(signupSucceeded());
   } catch (err) {
-    dispatch(signupFailed(err.toString()))
+    dispatch(signupFailed(err.response.data.message));
   }
-}
+};
 
 export default usersSlice.reducer;

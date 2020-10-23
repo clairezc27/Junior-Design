@@ -24,18 +24,17 @@ bcrypt = Bcrypt()
 firebase = Firebase(config)
 # app.debug = 'DEBUG' in os.environ
 
-@app.route('/apis/sign-up', methods=['POST'])
+@app.route('/apis/signup', methods=['POST'])
 def store_user():
-    email="email"
-    password="password"
-    # email = request.json['email']
-    # username = request.json['username']
     auth = firebase.auth()
-    auth.create_user_with_email_and_password(email, password)
-    
-    return 200
+    auth.create_user_with_email_and_password(request.json['email'], request.json['password'])
+    response_object = {
+        'status': 'success',
+        'message': 'Successfully signed up.'
+        }
+    return response_object, 200
 
-@app.route('/apis/twitter', methods=['POST'])
+@app.route('/apis/get-tweets', methods=['POST'])
 def store_data(tweets, tids):
 
     auth = firebase.auth()

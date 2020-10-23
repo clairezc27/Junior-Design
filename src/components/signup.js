@@ -1,34 +1,26 @@
-import React from 'react';
+import React, { useImperativeHandle } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { signUp } from './../features/auth';
+
 
 const Signup = () => {
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const onFinish = (values) => {
+    console.log(values.email);
+    console.log(values.password);
+    console.log("HELLO")
+    dispatch(signUp(values.email, values.password));
+    history.push("/dashboard");
+  };
+
   return (
-    <Form className="auth" name="register" scrollToFirstError >
-      <Form.Item
-        name="first"
-        rules={[
-        {
-          required: true,
-          message: 'Please input your first name!',
-          whitespace: true,
-        },
-        ]}>
-        <Input autocomplete="username" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="First name" />
-      </Form.Item>
-
-      <Form.Item
-        name="last"
-        rules={[
-        {
-          required: true,
-          message: 'Please input your last name!',
-          whitespace: true,
-        },
-        ]}>
-        <Input autocomplete="username" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Last name" />
-      </Form.Item>
-
+    <Form className="auth" name="register" onFinish={onFinish} scrollToFirstError >
       <Form.Item
         name="email"
         rules={[
