@@ -36,7 +36,7 @@ def store_user():
     return 200
 
 @app.route('/apis/get-tweets', methods=['POST'])
-def store_data(handle):
+def store_data(handle, words):
     # gets flagged tweets from api, stores them in db
     bearer_token = twitterapikeys.bearerToken
     url = "https://api.twitter.com/2/tweets/search/recent?query=from:{}".format(
@@ -52,9 +52,17 @@ def store_data(handle):
     tweet_ids = []
     if json_response['meta']['result_count'] > 0:
         data = json_response["data"]
-        for i in data:    
+        for i in data: # i is each tweet in data
             tweet = i["text"]
             for w in inapp:
+                word = w.rstrip('\n')
+                tws = " {} ".format(tweet)
+                if " {} ".format(word) in tws.lower():
+                    tid = i["id"]
+                    tweets.append(tweet)
+                    tweet_ids.append(tid)
+                    break
+            for w in words:
                 word = w.rstrip('\n')
                 tws = " {} ".format(tweet)
                 if " {} ".format(word) in tws.lower():

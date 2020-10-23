@@ -41,10 +41,10 @@ export const {
   searchStart, searchSucceeded, fetchStart, fetchSucceeded
 } = twitterSlice.actions;
 
-export const searchTweets = (handle) => async dispatch => {
+export const searchTweets = (handle, words) => async dispatch => {
   try {
     dispatch(searchStart())
-    await apis.getTweets(handle)
+    await apis.getTweets(handle, words)
     dispatch(searchSucceeded())
   } catch (err) {
     dispatch(searchFailed(err.toString()))

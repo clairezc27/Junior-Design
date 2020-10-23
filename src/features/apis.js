@@ -16,8 +16,9 @@ const signup = (email, password) => axios.post(SIGNUP_URL, {
     password: password
   });
 
-const getTweets = (handle) => axios.post(GET_TWEETS_URL, {
-    handle: handle
+const getTweets = (handle, words) => axios.post(GET_TWEETS_URL, {
+    handle: handle,
+    words: words
 })
 
 const displayTweets = (batch) => axios.post(DISPLAY_TWEETS, {
