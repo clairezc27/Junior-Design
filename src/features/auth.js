@@ -20,7 +20,7 @@ const usersSlice = createSlice({
         console.error(e);
       }
     },
-    loginStart(state, _action) {
+    loginStart(state, action) {
       state.isLoggingIn = true;
       delete state.loginError;
     },
@@ -38,11 +38,30 @@ const usersSlice = createSlice({
       localStorage.removeItem('currentUser');
       delete state.currentUser;
     },
+    signupStart(state, action) {
+      state.isLoggingIn = true;
+      delete state.loginError;
+    },
+    signupSucceeded(state, action) {
+      localStorage.setItem('currentUser', JSON.stringify(action.payload));
+
+      state.isLoggingIn = false;
+      state.currentUser = action.payload;
+    },
+    signupFailed(state) {
+      state.isLoggingIn = false;
+      state.loginError = 'Signup Failed';
+    },
+    logout(state) {
+      localStorage.removeItem('currentUser');
+      delete state.currentUser;
+    },
   },
 });
 
 export const {
   getCurrentUser, loginStart, loginSucceeded, loginFailed, logout,
+  signupStart, signupSucceeded, signupFailed
 } = usersSlice.actions;
 
 export const login = (username, password) => async dispatch => {
@@ -52,6 +71,16 @@ export const login = (username, password) => async dispatch => {
     dispatch(loginSucceeded(response))
   } catch (err) {
     dispatch(loginFailed(err.toString()))
+  }
+}
+
+export const signup = (username, password) => async dispatch => {
+  try {
+    dispatch(signupStart())
+    const response = await apis.signup(username, password)
+    dispatch(signupSucceeded(response))
+  } catch (err) {
+    dispatch(signupFailed(err.toString()))
   }
 }
 
