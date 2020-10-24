@@ -11,8 +11,7 @@ const Header = () => {
 
 const dispatch = useDispatch();
 const history = useHistory();
-const currentUser = useSelector(state => state.auth.currentUser);
-console.log("curr: " + currentUser);
+const currentUser = localStorage.getItem('currentUser');
 
 const logout = () => {
   dispatch(logOut());
@@ -26,7 +25,7 @@ const logout = () => {
           <FaFeatherAlt />
         </IconContext.Provider>Social Media Mistake Flagger
       </Navbar.Brand>
-      {currentUser != "" &&
+      {currentUser != null &&
         <Button className="justify-content-end" type="primary" style={{ marginBottom: "20px" }} onClick={logout}>Logout</Button>
       }
       <Button className="justify-content-end">
