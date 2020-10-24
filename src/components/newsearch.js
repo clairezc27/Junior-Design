@@ -50,15 +50,9 @@ const NewSearch = () => {
                     </Tab.Pane>
                     <Tab.Pane eventKey="2">
                         <p>Our application will search your tweets against a comprehensive list our team 
-                        of developers created to find any potential inappropriate language. This list 
-                        consists of over 1,000 terms that violate Twitter’s Guidelines. Some of the 
-                        topics we query for include, but are not limited to, foul language, hate speech 
-                        and ideology, inciting violence, harassment, extremism, terrorism, and self-harm.</p>
-                        <p>If you think there are words that we may not have covered in our list and 
-                        would like these words to be included in the search parameters, please enter them 
-                        below. Our application will use our list and any words you come up with when 
-                        performing your search. If left blank, our application will search and flag tweets 
-                        against our existing list.</p>
+                        of developers created to find any potential inappropriate language. If you think there are 
+                        words that we may not have covered in our list and you would like these words to be 
+                        queried for, please enter them below. Leave blank if you do not wish to add any more parameters.</p>
                         <Form.Group controlId="additional-search-params-text">
                             <FormControl as="textarea" placeholder="Enter words, separated by commas, you wish to additionally query for." />   
                         </Form.Group>
