@@ -28,6 +28,7 @@ const usersSlice = createSlice({
     },
     loginSucceeded(state, action) {
       localStorage.setItem('currentUser', action.payload);
+      state.currentUser = action.payload.email;
       state.isLoggingIn = false;
     },
     loginFailed(state, action) {
@@ -48,11 +49,6 @@ const usersSlice = createSlice({
     signupFailed(state, action) {
       state.isSigningUp = false;
       state.signupError = action.payload;
-    },
-    logout(state) {
-      state.isCurrentUserFetched = false;
-      localStorage.removeItem('currentToken');
-      delete state.currentUser;
     }
   }
 });
@@ -81,6 +77,14 @@ export const signUp = (email, password) => async dispatch => {
     dispatch(signupSucceeded());
   } catch (err) {
     dispatch(signupFailed(err.response.data.message));
+  }
+};
+
+export const logOut = (user) => async dispatch => {
+  try {
+    dispatch(logout());
+  } catch (err) {
+
   }
 };
 
