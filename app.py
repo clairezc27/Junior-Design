@@ -28,11 +28,42 @@ firebase = Firebase(config)
 def store_user():
     email="email"
     password="password"
-    # email = request.json['email']
-    # username = request.json['username']
+    auth = firebase.auth()    
+    auth.create_user_with_email_and_password(request.json['email'], request.json['password'])
+    data = {
+        'email': request.json['email']
+    }   
+    return jsonify(data), 200
+
+@app.route('/apis/login', methods=['POST'])
+def login():
+    # Get a reference to the auth service
     auth = firebase.auth()
-    auth.create_user_with_email_and_password(email, password)
-    
+
+    # Log the user in
+    user = auth.sign_in_with_email_and_password(request.json['email'], request.json['password'])
+    user = auth.refresh(user['refreshToken'])
+    # Get a reference to the database service
+    db = firebase.database()
+
+    # data to save
+    data = {
+        'email': request.json['email']
+    }
+
+    # Pass the user's idToken to the push method
+    results = db.child("users").push(data, user['idToken'])
+    return jsonify(data), 200
+
+@app.route('/apis/get-tweets', methods=['POST'])
+def store_data(tweets, tids):
+
+    auth = firebase.auth()
+    user = 1 #get user somehow
+    batch = 1 #get highest number batch from list, add one to it 
+    for i in range(len(tweets)):
+        auth.add_flagged_tweet(tids[i], tweets[i], user, batch)
+
     return 200
 
 @app.route('/apis/get-tweets', methods=['POST'])
@@ -103,10 +134,10 @@ def new_search():
 def review():
     return app.send_static_file('index.html')
 @app.route('/login')
-def login():
+def loginpage():
     return app.send_static_file('index.html')
 @app.route('/signup')
-def signup():
+def signuppage():
     return app.send_static_file('index.html')
 
 

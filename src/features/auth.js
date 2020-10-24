@@ -11,32 +11,21 @@ const usersSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    getCurrentUser(state) {
-      const currentUser = localStorage.getItem('currentUser');
-      state.isCurrentUserFetched = true;
-      try {
-        state.currentUser = JSON.parse(currentUser);
-      } catch (e) {
-        console.error(e);
-      }
-    },
     loginStart(state, _action) {
       state.isLoggingIn = true;
       delete state.loginError;
+      delete state.authorizationError;
     },
     loginSucceeded(state, action) {
-      localStorage.setItem('currentUser', JSON.stringify(action.payload));
-
+      localStorage.setItem('currentUser', action.payload);
       state.isLoggingIn = false;
-      state.currentUser = action.payload;
     },
-    loginFailed(state) {
+    loginFailed(state, action) {
       state.isLoggingIn = false;
-      state.loginError = 'Login Failed';
+      state.loginError = action.payload;
     },
     logout(state) {
       localStorage.removeItem('currentUser');
-      delete state.currentUser;
     },
     signupStart(state, _action) {
       state.isSigningUp = true;
@@ -48,12 +37,8 @@ const usersSlice = createSlice({
     signupFailed(state, action) {
       state.isSigningUp = false;
       state.signupError = action.payload;
-    },
-    logout(state) {
-      localStorage.removeItem('currentUser');
-      delete state.currentUser;
-    },
-  },
+    }
+  }
 });
 
 export const {
@@ -61,15 +46,15 @@ export const {
   signupStart, signupSucceeded, signupFailed
 } = usersSlice.actions;
 
-export const login = (username, password) => async dispatch => {
+export const login = (email, password) => async dispatch => {
   try {
-    dispatch(loginStart())
-    const response = await apis.login(username, password)
-    dispatch(loginSucceeded(response))
+    dispatch(loginStart());
+    const response = await apis.login(email, password);
+    dispatch(loginSucceeded(response.data.email));
   } catch (err) {
-    dispatch(loginFailed(err.toString()))
+    dispatch(loginFailed(err.response));
   }
-}
+};
 
 export const signUp = (email, password) => async dispatch => {
   try {
@@ -78,6 +63,14 @@ export const signUp = (email, password) => async dispatch => {
     dispatch(signupSucceeded());
   } catch (err) {
     dispatch(signupFailed(err.response.data.message));
+  }
+};
+
+export const logOut = (user) => async dispatch => {
+  try {
+    dispatch(logout());
+  } catch (err) {
+
   }
 };
 
