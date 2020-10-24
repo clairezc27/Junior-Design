@@ -6,9 +6,9 @@ const SIGNUP_URL = `${BASE_URL}/signup`;
 const GET_TWEETS_URL = `${BASE_URL}/get-tweets`;
 
 const login = (email, password) => axios.post(LOGIN_URL, {
-    email: email,
-    password: password
-  });
+  email: email,
+  password: password,
+});
 
 const signup = (email, password) => axios.post(SIGNUP_URL, {
     email: email,

@@ -5,6 +5,7 @@ const initialState = {
   isCurrentUserFetched: false,
   isLoggingIn: false,
   isSigningUp: false,
+  currentUser: ""
 };
 
 const usersSlice = createSlice({
@@ -23,16 +24,15 @@ const usersSlice = createSlice({
     loginStart(state, _action) {
       state.isLoggingIn = true;
       delete state.loginError;
+      delete state.authorizationError;
     },
     loginSucceeded(state, action) {
-      localStorage.setItem('currentUser', JSON.stringify(action.payload));
-
+      localStorage.setItem('currentUser', action.payload);
       state.isLoggingIn = false;
-      state.currentUser = action.payload;
     },
-    loginFailed(state) {
+    loginFailed(state, action) {
       state.isLoggingIn = false;
-      state.loginError = 'Login Failed';
+      state.loginError = action.payload;
     },
     logout(state) {
       localStorage.removeItem('currentUser');
@@ -50,10 +50,11 @@ const usersSlice = createSlice({
       state.signupError = action.payload;
     },
     logout(state) {
-      localStorage.removeItem('currentUser');
+      state.isCurrentUserFetched = false;
+      localStorage.removeItem('currentToken');
       delete state.currentUser;
-    },
-  },
+    }
+  }
 });
 
 export const {
@@ -61,18 +62,20 @@ export const {
   signupStart, signupSucceeded, signupFailed
 } = usersSlice.actions;
 
-export const login = (username, password) => async dispatch => {
+export const login = (email, password) => async dispatch => {
+  console.log("inside login");
   try {
-    dispatch(loginStart())
-    const response = await apis.login(username, password)
-    dispatch(loginSucceeded(response))
+    dispatch(loginStart());
+    const response = await apis.login(email, password);
+    dispatch(loginSucceeded(response.data.Authorization));
   } catch (err) {
-    dispatch(loginFailed(err.toString()))
+    dispatch(loginFailed(err.response.data.message));
   }
-}
+};
 
 export const signUp = (email, password) => async dispatch => {
   try {
+    console.log("signing up")
     dispatch(signupStart());
     await apis.signup(email, password);
     dispatch(signupSucceeded());
