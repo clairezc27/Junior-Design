@@ -17,8 +17,6 @@ config = {
   "databaseURL": "https://twitter-mistake.firebaseio.com",
   "storageBucket": "twitter-mistake.appspot.com"
 }
-CORS(app)
-bcrypt = Bcrypt()
 firebase = Firebase(config)
 # server = dash_app.server
 # app.debug = 'DEBUG' in os.environ
@@ -109,4 +107,4 @@ def signuppage():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)
