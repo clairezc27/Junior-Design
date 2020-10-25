@@ -8,9 +8,10 @@ const Dashboard = () => {
   return (
     <div className="Home">
       <Header />
-      <Button style={{margin: "20px 0px"}} type="primary" size="large">New Search</Button>
+      <h1 className="Home-header">Welcome Home!</h1>
+      <Button className="new-search-btn" type="primary" size="large">New Search</Button>
       <Row>
-        <Col span={8}>Searches</Col>
+        <Col span={8}>Order Date</Col>
         <Col span={8}>Twitter Handle</Col>
         <Col span={8}>Status</Col>
       </Row>
