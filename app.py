@@ -1,12 +1,6 @@
 import os
-import jwt
 from flask import Flask, render_template, jsonify, request
-from flask_cors import CORS
-from flask_bcrypt import Bcrypt
 from firebase import Firebase
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
 import requests
 import json
 from twitter import *
