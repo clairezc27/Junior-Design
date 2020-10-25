@@ -22,6 +22,7 @@ config = {
 CORS(app)
 bcrypt = Bcrypt()
 firebase = Firebase(config)
+server = app.server
 # app.debug = 'DEBUG' in os.environ
 
 @app.route('/apis/signup', methods=['POST'])
