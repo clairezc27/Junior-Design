@@ -54,6 +54,10 @@
   justify-content: center;
 }
 
+.ant-form-item-control:first-child:not([class^=ant-col-]):not([class*=" ant-col-"]) {
+  width: 300px;
+}
+
 .user-btn {
   position: absolute !important;
   right: 15px !important;
