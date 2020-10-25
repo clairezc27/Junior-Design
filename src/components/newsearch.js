@@ -1,6 +1,11 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
-import Header from './common/header.js'
+import Header from './common/header.js';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup'
+import Tab from 'react-bootstrap/Tab'
+import FormControl from 'react-bootstrap/FormControl'
 
 const NewSearch = () => {
     return (
@@ -19,7 +24,7 @@ const NewSearch = () => {
                     <Nav.Link eventKey="3">Step 3: Review and Submit</Nav.Link>
                 </Nav.Item>
             </Nav>
-            <Form>
+            <Form className="tab">
                 <Tab.Content>
                     <Tab.Pane eventKey="1">
                         {/* TODO: Add support for user input of more than one twitter account.
