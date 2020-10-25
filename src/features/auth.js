@@ -5,22 +5,12 @@ const initialState = {
   isCurrentUserFetched: false,
   isLoggingIn: false,
   isSigningUp: false,
-  currentUser: ""
 };
 
 const usersSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    getCurrentUser(state) {
-      const currentUser = localStorage.getItem('currentUser');
-      state.isCurrentUserFetched = true;
-      try {
-        state.currentUser = JSON.parse(currentUser);
-      } catch (e) {
-        console.error(e);
-      }
-    },
     loginStart(state, _action) {
       state.isLoggingIn = true;
       delete state.loginError;
@@ -36,7 +26,6 @@ const usersSlice = createSlice({
     },
     logout(state) {
       localStorage.removeItem('currentUser');
-      delete state.currentUser;
     },
     signupStart(state, _action) {
       state.isSigningUp = true;
@@ -48,11 +37,6 @@ const usersSlice = createSlice({
     signupFailed(state, action) {
       state.isSigningUp = false;
       state.signupError = action.payload;
-    },
-    logout(state) {
-      state.isCurrentUserFetched = false;
-      localStorage.removeItem('currentToken');
-      delete state.currentUser;
     }
   }
 });
@@ -63,24 +47,30 @@ export const {
 } = usersSlice.actions;
 
 export const login = (email, password) => async dispatch => {
-  console.log("inside login");
   try {
     dispatch(loginStart());
     const response = await apis.login(email, password);
-    dispatch(loginSucceeded(response.data.Authorization));
+    dispatch(loginSucceeded(response.data.email));
   } catch (err) {
-    dispatch(loginFailed(err.response.data.message));
+    dispatch(loginFailed(err.response));
   }
 };
 
 export const signUp = (email, password) => async dispatch => {
   try {
-    console.log("signing up")
     dispatch(signupStart());
     await apis.signup(email, password);
     dispatch(signupSucceeded());
   } catch (err) {
     dispatch(signupFailed(err.response.data.message));
+  }
+};
+
+export const logOut = (user) => async dispatch => {
+  try {
+    dispatch(logout());
+  } catch (err) {
+
   }
 };
 
