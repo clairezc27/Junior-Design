@@ -14,7 +14,8 @@ import config
 
 with open('inappropriatelist.txt', 'r') as il:
   inapp = il.readlines()
-
+# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+# dash_app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app = Flask(__name__, static_folder='build/', static_url_path='/')
 config = {
   "apiKey": "AIzaSyBT5w99MAZ9DNHpAE5QrvJGIzIDrTE1Uv0",
@@ -25,7 +26,7 @@ config = {
 CORS(app)
 bcrypt = Bcrypt()
 firebase = Firebase(config)
-server = app.server
+# server = dash_app.server
 # app.debug = 'DEBUG' in os.environ
 
 @app.route('/apis/signup', methods=['POST'])
@@ -113,10 +114,5 @@ def signuppage():
     return app.send_static_file('index.html')
 
 
-# @app.route('/<path:path>')
-# def static_file(path):
-#     return app.send_static_file(path)
-# routing
-# @app.route('/', defaults={'path': ''})
-# @app.route('/<path:path>')
-# def catch_all(path):
+if __name__ == "__main__":
+    app.run(debug=True)
