@@ -18,6 +18,7 @@ const usersSlice = createSlice({
     },
     loginSucceeded(state, action) {
       localStorage.setItem('currentUser', action.payload);
+      state.currUser = action.payload;
       state.isLoggingIn = false;
     },
     loginFailed(state, action) {
@@ -26,6 +27,7 @@ const usersSlice = createSlice({
     },
     logout(state) {
       localStorage.removeItem('currentUser');
+      delete state.currUser;
     },
     signupStart(state, _action) {
       state.isSigningUp = true;

@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './common/header.js';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
@@ -20,7 +21,10 @@ const Signup = () => {
   };
 
   return (
+    <>
+    <Header />
     <Form className="auth" name="register" onFinish={onFinish} scrollToFirstError >
+      <h1 className="Home-header">Sign Up</h1>
       <Form.Item
         name="email"
         rules={[
@@ -63,10 +67,11 @@ const Signup = () => {
 
       <Form.Item>
         <Button className="signup-form-button" type="primary" htmlType="submit">
-        Register
+        Sign Up
         </Button>
       </Form.Item>
     </Form>
+    </>
   );
 }
 

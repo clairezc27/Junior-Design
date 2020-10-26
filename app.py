@@ -1,8 +1,5 @@
 import os
-import jwt
 from flask import Flask, render_template, jsonify, request
-from flask_cors import CORS
-from flask_bcrypt import Bcrypt
 from firebase import Firebase
 import requests
 import json
@@ -11,7 +8,8 @@ import twitterapikeys
 
 with open('inappropriatelist.txt', 'r') as il:
   inapp = il.readlines()
-
+# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+# dash_app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app = Flask(__name__, static_folder='build/', static_url_path='/')
 config = {
   "apiKey": "AIzaSyBT5w99MAZ9DNHpAE5QrvJGIzIDrTE1Uv0",
@@ -19,9 +17,8 @@ config = {
   "databaseURL": "https://twitter-mistake.firebaseio.com",
   "storageBucket": "twitter-mistake.appspot.com"
 }
-CORS(app)
-bcrypt = Bcrypt()
 firebase = Firebase(config)
+# server = dash_app.server
 # app.debug = 'DEBUG' in os.environ
 
 @app.route('/apis/sign-up', methods=['POST'])
@@ -141,10 +138,5 @@ def signuppage():
     return app.send_static_file('index.html')
 
 
-# @app.route('/<path:path>')
-# def static_file(path):
-#     return app.send_static_file(path)
-# routing
-# @app.route('/', defaults={'path': ''})
-# @app.route('/<path:path>')
-# def catch_all(path):
+if __name__ == "__main__":
+    app.run(host='127.0.0.1', port=5000, debug=True)
