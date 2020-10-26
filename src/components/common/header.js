@@ -11,8 +11,8 @@ const Header = () => {
 
 const dispatch = useDispatch();
 const history = useHistory();
-const currentUser = localStorage.getItem('currentUser');
-
+const currUser = useSelector(state => state.auth.currUser);
+console.log("user: " + currUser)
 const logout = () => {
   dispatch(logOut());
   history.push("/");
@@ -25,14 +25,16 @@ const logout = () => {
           <FaFeatherAlt />
         </IconContext.Provider>Social Media Mistake Flagger
       </Navbar.Brand>
-      {currentUser != null &&
+      {currUser &&
+        <>
         <Button className="justify-content-end logout-btn" type="primary" onClick={logout}>Logout</Button>
+        <Button className="justify-content-end">
+          <IconContext.Provider value={{ style: { fontSize: "20px" } }}>
+            <FaUser />
+          </IconContext.Provider>
+        </Button>
+        </>
       }
-      <Button className="justify-content-end">
-        <IconContext.Provider value={{ style: { fontSize: "20px" } }}>
-          <FaUser />
-        </IconContext.Provider>
-      </Button>
     </Navbar>
   );
 };
