@@ -4,7 +4,7 @@ from firebase import Firebase
 import requests
 import json
 from twitter import *
-import config
+import twitterapikeys
 
 with open('inappropriatelist.txt', 'r') as il:
   inapp = il.readlines()
@@ -21,9 +21,11 @@ firebase = Firebase(config)
 # server = dash_app.server
 # app.debug = 'DEBUG' in os.environ
 
-@app.route('/apis/signup', methods=['POST'])
+@app.route('/apis/sign-up', methods=['POST'])
 def store_user():
-    auth = firebase.auth()
+    email="email"
+    password="password"
+    auth = firebase.auth()    
     auth.create_user_with_email_and_password(request.json['email'], request.json['password'])
     data = {
         'email': request.json['email']
@@ -51,18 +53,11 @@ def login():
     return jsonify(data), 200
 
 @app.route('/apis/get-tweets', methods=['POST'])
-def store_data(tweets, tids):
-
-    auth = firebase.auth()
-    user = 1 #get user somehow
-    batch = 1 #get highest number batch from list, add one to it 
-    for i in range(len(tweets)):
-        auth.add_flagged_tweet(tids[i], tweets[i], user, batch)
-
-    return 200
-
-def get_data(handle):
-    bearer_token = config.bearerToken
+def store_data():
+    # gets flagged tweets from api, stores them in db
+    handle = request.json['handle']
+    words = request.json['words']
+    bearer_token = twitterapikeys.bearerToken
     url = "https://api.twitter.com/2/tweets/search/recent?query=from:{}".format(
         handle
     )
@@ -73,18 +68,46 @@ def get_data(handle):
     json_response =  response.json()
 
     tweets = []
-    tweetIDs = []
+    tweet_ids = []
     if json_response['meta']['result_count'] > 0:
         data = json_response["data"]
-        for i in data:    
+        for i in data: # i is each tweet in data
             tweet = i["text"]
-            for word in inapp:
-                if word.rstrip('\n') in tweet.lower():
+            for w in inapp:
+                word = w.rstrip('\n')
+                tws = " {} ".format(tweet)
+                if " {} ".format(word) in tws.lower():
                     tid = i["id"]
                     tweets.append(tweet)
-                    tweetIDs.append(tid)
+                    tweet_ids.append(tid)
                     break
-    return tweets, tweetIDs
+            for w in words:
+                word = w.rstrip('\n')
+                tws = " {} ".format(tweet)
+                if " {} ".format(word) in tws.lower():
+                    tid = i["id"]
+                    tweets.append(tweet)
+                    tweet_ids.append(tid)
+                    break
+
+    db = firebase.database()
+    bno = db.child("batch_matching").order_by_child("batch_id").limit_to_first(1).get()
+
+    user = 1 #get user somehow
+    batch = bno + 1 #get highest number batch from list, add one to it 
+    db.child("batch_matching").push({
+        "batch_id" : batch,
+        "user" : user
+        })
+    data = {"batch_id" : batch}
+    for i in range(len(tweets)):
+        data["id"] = tids[i]
+        data["tweet"] = tweets[i]
+        db.child("tweets").push(data)
+
+    return 200
+
+
 
 @app.route('/')
 def index():
