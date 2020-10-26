@@ -38,7 +38,7 @@ const twitterSlice = createSlice({
 });
 
 export const {
-  searchStart, searchSucceeded, fetchStart, fetchSucceeded
+  searchStart, searchSucceeded, fetchStart, fetchSucceeded, searchFailed, fetchFailed
 } = twitterSlice.actions;
 
 export const searchTweets = (handle, words) => async dispatch => {

@@ -53,19 +53,10 @@ def login():
     return jsonify(data), 200
 
 @app.route('/apis/get-tweets', methods=['POST'])
-def store_data(tweets, tids):
-
-    auth = firebase.auth()
-    user = 1 #get user somehow
-    batch = 1 #get highest number batch from list, add one to it 
-    for i in range(len(tweets)):
-        auth.add_flagged_tweet(tids[i], tweets[i], user, batch)
-
-    return 200
-
-@app.route('/apis/get-tweets', methods=['POST'])
-def store_data(handle, words):
+def store_data():
     # gets flagged tweets from api, stores them in db
+    handle = request.json['handle']
+    words = request.json['words']
     bearer_token = twitterapikeys.bearerToken
     url = "https://api.twitter.com/2/tweets/search/recent?query=from:{}".format(
         handle
