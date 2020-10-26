@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5000/apis';
 const LOGIN_URL = `${BASE_URL}/login`;
-const SIGNUP_URL = `${BASE_URL}/signup`;
+const SIGNUP_URL = `${BASE_URL}/sign-up`;
 const GET_TWEETS_URL = `${BASE_URL}/get-tweets`;
 const DISPLAY_TWEETS = `${BASE_URL}/display-tweets`;
 

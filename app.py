@@ -8,8 +8,6 @@ import twitterapikeys
 
 with open('inappropriatelist.txt', 'r') as il:
   inapp = il.readlines()
-# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-# dash_app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app = Flask(__name__, static_folder='build/', static_url_path='/')
 config = {
   "apiKey": "AIzaSyBT5w99MAZ9DNHpAE5QrvJGIzIDrTE1Uv0",
@@ -18,18 +16,19 @@ config = {
   "storageBucket": "twitter-mistake.appspot.com"
 }
 firebase = Firebase(config)
-# server = dash_app.server
-# app.debug = 'DEBUG' in os.environ
 
 @app.route('/apis/sign-up', methods=['POST'])
 def store_user():
-    email="email"
-    password="password"
+    print("INSIDE API")
     auth = firebase.auth()    
     auth.create_user_with_email_and_password(request.json['email'], request.json['password'])
+    # user = auth.sign_in_with_email_and_password(request.json['email'], request.json['password'])
+    # db = firebase.database()
     data = {
         'email': request.json['email']
-    }   
+        }   
+    # Pass the user's idToken to the push method
+    # results = db.child("users").push(data, user['idToken'])
     return jsonify(data), 200
 
 @app.route('/apis/login', methods=['POST'])
@@ -101,7 +100,7 @@ def store_data():
         })
     data = {"batch_id" : batch}
     for i in range(len(tweets)):
-        data["id"] = tids[i]
+        data["id"] = tweet_ids[i]
         data["tweet"] = tweets[i]
         db.child("tweets").push(data)
 

@@ -33,8 +33,9 @@ const usersSlice = createSlice({
       state.isSigningUp = true;
       delete state.signupError;
     },
-    signupSucceeded(state) {
+    signupSucceeded(state, action) {
       state.isSigningUp = false;
+      state.currUser = action.payload;
     },
     signupFailed(state, action) {
       state.isSigningUp = false;
@@ -61,8 +62,9 @@ export const login = (email, password) => async dispatch => {
 export const signUp = (email, password) => async dispatch => {
   try {
     dispatch(signupStart());
-    await apis.signup(email, password);
-    dispatch(signupSucceeded());
+    const response = await apis.signup(email, password);
+    console.log("response: " + response.data.email)
+    dispatch(signupSucceeded(response.data.email));
   } catch (err) {
     dispatch(signupFailed(err.response.data.message));
   }
