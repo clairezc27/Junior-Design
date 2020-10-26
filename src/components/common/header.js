@@ -26,7 +26,7 @@ const logout = () => {
         </IconContext.Provider>Social Media Mistake Flagger
       </Navbar.Brand>
       {currentUser != null &&
-        <Button className="justify-content-end" type="primary" style={{ marginBottom: "20px" }} onClick={logout}>Logout</Button>
+        <Button className="justify-content-end logout-btn" type="primary" onClick={logout}>Logout</Button>
       }
       <Button className="justify-content-end">
         <IconContext.Provider value={{ style: { fontSize: "20px" } }}>

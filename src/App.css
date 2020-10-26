@@ -23,6 +23,11 @@
   to { transform: rotate(360deg); }
 }
 
+.logout-btn {
+  right: 70px;
+  position: absolute;
+}
+
 .Home {
   align-items: center;
   text-align: center;
@@ -30,10 +35,15 @@
 
 .Home-header {
   text-align: center;
-  font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+  font-family: Roboto, sans-serif;
   font-size: 50px;
   font-weight: 500;
   margin-top: .5em;
+  color: #007bff!important;
+}
+
+.new-search-btn {
+  margin: 30px 0px;
 }
 
 .auth {
@@ -44,6 +54,10 @@
   justify-content: center;
 }
 
+.ant-form-item-control:first-child:not([class^=ant-col-]):not([class*=" ant-col-"]) {
+  width: 300px;
+}
+
 .user-btn {
   position: absolute !important;
   right: 15px !important;
@@ -52,7 +66,7 @@
 
 .box {
   border-radius: 8px;
-  background-color: #61dafb;
+  background-color: #AAB8C2;
   margin-left: 30px;
   margin-right: 30px;
   margin-top: 30px;
@@ -74,6 +88,6 @@
   text-align: left;
   margin-left: 8%;
   margin-top: 3%;
-  margin-right: 3%;
+  margin-right: 8%;
 }
 

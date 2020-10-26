@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './common/header.js';
 import { Form, Input, Button } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { useHistory } from "react-router-dom";
@@ -16,12 +17,15 @@ const Login = () => {
   }
 
   return (
+    <>
+    <Header />
     <Form className="auth" name="normal_login"
       initialValues={{
         remember: true,
       }}
       onFinish={onFinish}
     >
+      <h1 className="Home-header">Login</h1>
       <Form.Item name="email"
         rules={[
         {
@@ -53,10 +57,11 @@ const Login = () => {
         type="primary"
         htmlType="submit"
         >
-        Log in
+        Login
         </Button>
       </Form.Item>
     </Form>
+    </>
   );
 }
 
