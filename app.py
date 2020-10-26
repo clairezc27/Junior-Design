@@ -93,7 +93,7 @@ def store_data():
     db = firebase.database()
     bno = db.child("batch_matching").order_by_child("batch_id").limit_to_first(1).get()
 
-    user = 1 #get user somehow
+    user = request.json['email']
     batch = bno + 1 #get highest number batch from list, add one to it 
     db.child("batch_matching").push({
         "batch_id" : batch,
