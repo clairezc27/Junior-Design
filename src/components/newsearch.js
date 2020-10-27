@@ -6,8 +6,15 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup'
 import Tab from 'react-bootstrap/Tab'
 import FormControl from 'react-bootstrap/FormControl'
+import { useDispatch } from 'react-redux';
+import { searchTweets } from "./../features/twitter";
 
 const NewSearch = () => {
+    const dispatch = useDispatch();
+    const onFinish = (values) => {
+        dispatch(searchTweets("bongo3312", "cheese,grater,mouse", "brett@email.com"))
+    }
+    
     return (
         <>
         <Header />
@@ -68,7 +75,7 @@ const NewSearch = () => {
                         correct, complete your order by clicking "Submit."</h5>
                         <p>Twitter handle: @</p>
                         <p>Additional Search Parameters: </p>
-                        <Button type="primary" className="submit-form" htmlType="submit">Submit</Button>
+                        <Button type="primary" className="submit-form" htmlType="submit" onClick={onFinish}>Submit</Button>
                     </Tab.Pane>
                 </Tab.Content>
             </Form>

@@ -90,8 +90,10 @@ def store_data():
         data["id"] = tweet_ids[i]
         data["tweet"] = tweets[i]
         db.child("tweets").push(data)
-
-    return 200
+    print(tweets)
+    print(tweet_ids)
+    
+    return jsonify(tweets), jsonify(tweet_ids), 200
 
 
 
