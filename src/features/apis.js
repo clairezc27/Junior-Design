@@ -1,11 +1,11 @@
 import axios from 'axios';
-var BASE_URL;
-if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-  BASE_URL = 'http://localhost:5000/apis';	
-} else {
-  BASE_URL = '/apis';	
+var BASE_URL = '/apis';
+// if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+//   BASE_URL = 'http://localhost:5000/apis';	
+// } else {
+//   BASE_URL = '/apis';	
+// }
 
-}
 const LOGIN_URL = `${BASE_URL}/login`;
 const SIGNUP_URL = `${BASE_URL}/sign-up`;
 const GET_TWEETS_URL = `${BASE_URL}/get-tweets`;
