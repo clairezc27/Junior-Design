@@ -1,10 +1,11 @@
 import React from 'react';
 import Header from './common/header.js';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { login } from './../features/auth';
+import 'antd/dist/antd.css';
 
 const Login = () => {
   const history = useHistory();
@@ -12,9 +13,17 @@ const Login = () => {
 
   const onFinish = (values) => {
     console.log("login: " + values.email)
-    dispatch(login(values.email, values.password))
-    history.push('/dashboard');
+    dispatch(login(values.email, values.password, loginSucceed, loginFailed))
   }
+
+  const loginSucceed = () => {
+    history.push("/dashboard");
+  };
+  
+  const loginFailed = () => {
+    console.log("inside message")
+    message.error('Login failed');
+  };
 
   return (
     <>

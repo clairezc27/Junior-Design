@@ -49,24 +49,29 @@ export const {
   signupStart, signupSucceeded, signupFailed
 } = usersSlice.actions;
 
-export const login = (email, password) => async dispatch => {
+export const login = (email, password, callbackSucceed, callbackFailed) => async dispatch => {
   try {
     dispatch(loginStart());
     const response = await apis.login(email, password);
     dispatch(loginSucceeded(response.data.email));
+    callbackSucceed();
   } catch (err) {
+    console.log("login failed")
     dispatch(loginFailed(err.response));
+    callbackFailed();
   }
 };
 
-export const signUp = (email, password) => async dispatch => {
+export const signUp = (email, password, callbackSucceed, callbackFailed) => async dispatch => {
   try {
     dispatch(signupStart());
     const response = await apis.signup(email, password);
     console.log("response: " + response.data.email)
     dispatch(signupSucceeded(response.data.email));
+    callbackSucceed();
   } catch (err) {
     dispatch(signupFailed(err.response.data.message));
+    callbackFailed();
   }
 };
 

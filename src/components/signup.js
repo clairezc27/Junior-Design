@@ -2,10 +2,10 @@ import React from 'react';
 import Header from './common/header.js';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { signUp } from './../features/auth';
-
+import 'antd/dist/antd.css';
 
 const Signup = () => {
 
@@ -13,13 +13,17 @@ const Signup = () => {
   const history = useHistory();
 
   const onFinish = (values) => {
-    console.log(values.email);
-    console.log(values.password);
-    console.log("HELLO")
-    dispatch(signUp(values.email, values.password));
-    history.push("/dashboard");
+    dispatch(signUp(values.email, values.password, signUpSucceed, signUpFailed));
   };
 
+  const signUpSucceed = () => {
+    history.push("/dashboard");
+  };
+  
+  const signUpFailed = () => {
+    message.error('Signup failed');
+  };
+  
   return (
     <>
     <Header />
