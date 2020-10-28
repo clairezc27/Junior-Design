@@ -16,6 +16,7 @@ const NewSearch = () => {
     }
     
     return (
+        /*
         <>
         <Header />
         <h1 className="Home-header">New Search</h1>
@@ -34,10 +35,6 @@ const NewSearch = () => {
             <Form className="tab">
                 <Tab.Content>
                     <Tab.Pane eventKey="1">
-                        {/* TODO: Add support for user input of more than one twitter account.
-                        Option 1: Have user input a number and then generate that inputted amount of FormControls one below the other.
-                        Option 2: Have a textarea in which user inputs twitter handles separated by commas
-                        Option 3: Have a maximum number of pregenerated FormControls for user to fill in and leave blank as fit*/}
                         <Form.Group controlId="input-handles"
                             rules={[
                             {
@@ -81,6 +78,8 @@ const NewSearch = () => {
             </Form>
         </Tab.Container>
         </>
+        */
+       <Button type="primary" className="submit-form" htmlType="submit" onClick={onFinish}>Submit</Button>
     );
 };
 

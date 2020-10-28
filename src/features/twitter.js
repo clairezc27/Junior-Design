@@ -44,7 +44,7 @@ export const {
 export const searchTweets = (handle, words, email) => async dispatch => {
   try {
     dispatch(searchStart())
-    const response = await apis.getTweets(handle, words, email)
+    const response = await apis.searchTweets(handle, words, email)
     console.log(response)
     dispatch(searchSucceeded())
   } catch (err) {

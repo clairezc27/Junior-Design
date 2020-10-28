@@ -1,5 +1,5 @@
 import axios from 'axios';
-var BASE_URL= '/apis';
+var BASE_URL= 'http://localhost:5000/apis';
 // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
 //   BASE_URL = 'http://localhost:5000/apis';	
 // } else {
@@ -8,7 +8,7 @@ var BASE_URL= '/apis';
 
 const LOGIN_URL = `${BASE_URL}/login`;
 const SIGNUP_URL = `${BASE_URL}/sign-up`;
-const GET_TWEETS_URL = `${BASE_URL}/get-tweets`;
+const GET_TWEETS_URL = `${BASE_URL}/search-tweets`;
 const DISPLAY_TWEETS = `${BASE_URL}/display-tweets`;
 
 const login = (email, password) => axios.post(LOGIN_URL, {
@@ -21,7 +21,7 @@ const signup = (email, password) => axios.post(SIGNUP_URL, {
     password: password
 });
 
-const getTweets = (handle, words, email) => axios.post(GET_TWEETS_URL, {
+const searchTweets = (handle, words, email) => axios.post(GET_TWEETS_URL, {
     handle: handle,
     words: words,
     email: email
@@ -33,5 +33,5 @@ const displayTweets = (batch) => axios.post(DISPLAY_TWEETS, {
   
 
 export default {
-  login, signup, getTweets
+  login, signup, searchTweets
 }

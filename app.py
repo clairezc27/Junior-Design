@@ -38,7 +38,7 @@ def login():
     results = db.child("users").push(data, user['idToken'])
     return jsonify(data), 200
 
-@app.route('/apis/get-tweets', methods=['POST'])
+@app.route('/apis/search-tweets', methods=['POST'])
 def store_data():
     # gets flagged tweets from api, stores them in db
     handle = request.json['handle']
@@ -67,33 +67,38 @@ def store_data():
                     tweets.append(tweet)
                     tweet_ids.append(tid)
                     break
-            for w in words:
-                word = w.rstrip('\n')
+            for w in words.split():
+                print(w)
                 tws = " {} ".format(tweet)
-                if " {} ".format(word) in tws.lower():
+                if " {} ".format(w) in tws.lower():
                     tid = i["id"]
                     tweets.append(tweet)
                     tweet_ids.append(tid)
                     break
+    print(words)
 
     db = firebase.database()
-    bno = db.child("batch_matching").order_by_child("batch_id").limit_to_first(1).get()
+    user = db.child("users").get()
+    db.child("batch_matching").push({"batch_id": 1, "user": "testuser"}, jsonify(user['idToken']))
+    # bm = db.child("batch_matching").get()
+    # bno = 1 # db.child("batch_matching").order_by_child("batch_id").limit_to_first(1).get()
 
-    user = request.json['email']
-    batch = bno + 1 #get highest number batch from list, add one to it 
-    db.child("batch_matching").push({
-        "batch_id" : batch,
-        "user" : user
-        })
-    data = {"batch_id" : batch}
-    for i in range(len(tweets)):
-        data["id"] = tweet_ids[i]
-        data["tweet"] = tweets[i]
-        db.child("tweets").push(data)
+    # user = request.json['email']
+    # batch = bno + 1 #get highest number batch from list, add one to it 
+    # db.child("batch_matching").push({
+    #     "batch_id": batch,
+    #     "user": user
+    #     })
+    # data = {"batch_id": batch}
+    # for i in range(len(tweets)):
+    #     data["id"] = tweet_ids[i]
+    #     data["tweet"] = tweets[i]
+    #     print(data)
+    #     db.child("tweets").push(data)
     print(tweets)
     print(tweet_ids)
     
-    return jsonify(tweets), jsonify(tweet_ids), 200
+    return jsonify(tweets), 200
 
 
 
