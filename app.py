@@ -58,6 +58,7 @@ def store_data():
     if json_response['meta']['result_count'] > 0:
         data = json_response["data"]
         for i in data: # i is each tweet in data
+            found = False
             tweet = i["text"]
             for w in inapp:
                 word = w.rstrip('\n')
@@ -66,34 +67,35 @@ def store_data():
                     tid = i["id"]
                     tweets.append(tweet)
                     tweet_ids.append(tid)
+                    found = True
                     break
-            for w in words.split():
-                print(w)
-                tws = " {} ".format(tweet)
-                if " {} ".format(w) in tws.lower():
-                    tid = i["id"]
-                    tweets.append(tweet)
-                    tweet_ids.append(tid)
-                    break
-    print(words)
+            if found == False:
+                for w in words.split(","):
+                    print(w)
+                    tws = " {} ".format(tweet)
+                    if " {} ".format(w) in tws.lower():
+                        tid = i["id"]
+                        tweets.append(tweet)
+                        tweet_ids.append(tid)
+                        break
 
     db = firebase.database()
     user = db.child("users").get()
-    db.child("batch_matching").push({"batch_id": 1, "user": "testuser"}, jsonify(user['idToken']))
+    # db.child("batch_matching").push({"batch_id": 1, "user": "testuser"}, jsonify(user['idToken']))
     # bm = db.child("batch_matching").get()
-    # bno = 1 # db.child("batch_matching").order_by_child("batch_id").limit_to_first(1).get()
+    bno = 1 # db.child("batch_matching").order_by_child("batch_id").limit_to_first(1).get()
 
-    # user = request.json['email']
-    # batch = bno + 1 #get highest number batch from list, add one to it 
+    user = request.json['email']
+    batch = bno + 1 #get highest number batch from list, add one to it 
     # db.child("batch_matching").push({
     #     "batch_id": batch,
     #     "user": user
     #     })
-    # data = {"batch_id": batch}
-    # for i in range(len(tweets)):
-    #     data["id"] = tweet_ids[i]
-    #     data["tweet"] = tweets[i]
-    #     print(data)
+    data = {"batch_id": batch}
+    for i in range(len(tweets)):
+        data["id"] = tweet_ids[i]
+        data["tweet"] = tweets[i]
+        print(data)
     #     db.child("tweets").push(data)
     print(tweets)
     print(tweet_ids)
