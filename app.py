@@ -5,6 +5,7 @@ import requests
 import json
 from twitter import *
 import twitterapikeys
+from datetime import date
 
 with open('inappropriatelist.txt', 'r') as il:
   inapp = il.readlines()
@@ -87,9 +88,11 @@ def store_data():
 
     user = request.json['email']
     batch = bno + 1 #get highest number batch from list, add one to it 
+    today = date.today().strftime("%m/%d/%Y")
     # db.child("batch_matching").push({
     #     "batch_id": batch,
     #     "user": user
+    #     "date": today
     #     })
     data = {"batch_id": batch}
     for i in range(len(tweets)):
