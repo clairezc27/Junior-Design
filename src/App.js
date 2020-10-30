@@ -6,6 +6,7 @@ import NewSearch from  "./components/newsearch";
 import Review from "./components/review";
 import Login from "./components/login";
 import Signup from "./components/signup";
+import Account from "./components/account";
 import './App.css';
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,6 +25,7 @@ class App extends Component {
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path = "/new-search" component = {NewSearch} />
               <Route exact path = "/review" component = {Review} />
+              <Route exact path = "/account" component = {Account} />
             </Switch>
           </div>
         </Router>
