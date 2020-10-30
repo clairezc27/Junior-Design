@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 const Dashboard = () => {
   const history = useHistory();
   const onClick = () => {
+    console.log("pushed")
     history.push("/new-search");
   }
 

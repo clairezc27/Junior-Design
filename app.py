@@ -125,6 +125,9 @@ def loginpage():
 @app.route('/signup')
 def signuppage():
     return app.send_static_file('index.html')
+@app.route('/account')
+def account():
+    return app.send_static_file('index.html')
 
 
 if __name__ == "__main__":
