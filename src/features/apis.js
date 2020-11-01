@@ -1,5 +1,5 @@
 import axios from 'axios';
-var BASE_URL= 'http://localhost:5000/apis';
+var BASE_URL= '/apis';
 // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
 //   BASE_URL = 'http://localhost:5000/apis';	
 // } else {

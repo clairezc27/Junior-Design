@@ -6,6 +6,9 @@ import json
 from twitter import *
 import twitterapikeys
 from datetime import date
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 
 with open('inappropriatelist.txt', 'r') as il:
   inapp = il.readlines()
@@ -16,6 +19,10 @@ config = {
   "databaseURL": "https://twitter-mistake.firebaseio.com",
   "storageBucket": "twitter-mistake.appspot.com"
 }
+cred = credentials.ApplicationDefault()
+firebase_admin.initialize_app(cred, {
+  'projectId': 'twitter-mistake'
+})
 firebase = Firebase(config)
 
 @app.route('/apis/sign-up', methods=['POST'])
@@ -80,32 +87,43 @@ def store_data():
                         tweet_ids.append(tid)
                         break
 
-    db = firebase.database()
-    user = db.child("users").get()
+    db = firestore.Client()
+    doc_ref = db.collection(u'batch_mapping')
+    query = list(doc_ref.order_by(u'batch_id', direction=firestore.Query.DESCENDING).limit(1))[0]
+   
+    print("result")
+    print(query)
+
     # db.child("batch_matching").push({"batch_id": 1, "user": "testuser"}, jsonify(user['idToken']))
     # bm = db.child("batch_matching").get()
     bno = 1 # db.child("batch_matching").order_by_child("batch_id").limit_to_first(1).get()
 
-    user = request.json['email']
-    batch = bno + 1 #get highest number batch from list, add one to it 
-    today = date.today().strftime("%m/%d/%Y")
+    # user = request.json['email']
+    # batch = bno + 1 #get highest number batch from list, add one to it 
+    # today = date.today().strftime("%m/%d/%Y")
     # db.child("batch_matching").push({
     #     "batch_id": batch,
     #     "user": user
     #     "date": today
     #     })
-    data = {"batch_id": batch}
-    for i in range(len(tweets)):
-        data["id"] = tweet_ids[i]
-        data["tweet"] = tweets[i]
-        print(data)
+
+    # create a new batch to add to database
+    new_batch = {
+        u'batch_id': bno,
+        u'user': request.json['email']
+    }
+    db.collection(u'batch_mapping').add(new_batch)
+    # data = {"batch_id": key}
+    # for i in range(len(tweets)):
+    #     data["id"] = tweet_ids[i]
+    #     data["tweet"] = tweets[i]
+    #     print(data)
+    #     db.collection(u'tweet').document(u'key').set(data)
     #     db.child("tweets").push(data)
     print(tweets)
     print(tweet_ids)
     
     return jsonify(tweets), 200
-
-
 
 @app.route('/')
 def index():

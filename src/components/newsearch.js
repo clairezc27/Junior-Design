@@ -7,11 +7,14 @@ import { searchTweets } from "./../features/twitter";
 import InputGroup from 'react-bootstrap/InputGroup';
 import Tab from 'react-bootstrap/Tab';
 import FormControl from 'react-bootstrap/FormControl';
+import { useSelector } from 'react-redux';
 
 const NewSearch = () => {
     const dispatch = useDispatch();
+    const currUser = useSelector(state => state.auth.currUser);
+
     const onFinish = (values) => {
-        dispatch(searchTweets("bongo3312", "cheese,grater,mouse", "brett@email.com"))
+        dispatch(searchTweets("bongo3312", "cheese,grater,mouse", currUser))
     }
     
     return (
