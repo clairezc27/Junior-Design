@@ -8,7 +8,7 @@ import twitterapikeys
 from datetime import date
 import firebase_admin
 from firebase_admin import credentials
-from firebase_admin import firestore
+from google.cloud import firestore
 
 with open('inappropriatelist.txt', 'r') as il:
   inapp = il.readlines()
@@ -89,14 +89,24 @@ def store_data():
 
     db = firestore.Client()
     doc_ref = db.collection(u'batch_mapping')
-    query = list(doc_ref.order_by(u'batch_id', direction=firestore.Query.DESCENDING).limit(1))[0]
-   
+    query = doc_ref.order_by(u'batch_id', direction=firestore.Query.DESCENDING)
+    bno=100
     print("result")
-    print(query)
-
+    cities_ref = db.collection(u'batch_mapping')
+    query = cities_ref.order_by(
+        'batch_id', direction='DESCENDING').limit(1)
+    results = query.get()
+    # [END order_simple_limit_desc]
+    print(results)
+    for doc in results:
+        print(doc.to_dict())
+        response = str(doc.to_dict())
+        load = json.loads(response)
+        print(load['batch_id'])
+        bno = int(load['batch_id']) + 1
     # db.child("batch_matching").push({"batch_id": 1, "user": "testuser"}, jsonify(user['idToken']))
     # bm = db.child("batch_matching").get()
-    bno = 1 # db.child("batch_matching").order_by_child("batch_id").limit_to_first(1).get()
+    # db.child("batch_matching").order_by_child("batch_id").limit_to_first(1).get()
 
     # user = request.json['email']
     # batch = bno + 1 #get highest number batch from list, add one to it 
