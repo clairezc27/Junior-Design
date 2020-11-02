@@ -145,11 +145,17 @@ def fetch_batches():
         response = response.replace("\'", "\"")
         load = json.loads(response)
         print(load)
-        dates.append(int(load["date"]))
-        handles.append(int(load["handle"]))
+        dates.append(load["date"])
+        handles.append(load["handle"])
         sizez.append(int(load["num_tweets"]))
-        
-    return jsonify(handles), jsonify(dates), jsonify(sizez), 200
+    
+    data = {
+        u"hangles": handles,
+        u"dates": dates,
+        u"sizes": sizez
+    }
+    print(data)
+    return jsonify(data), 200
 
 @app.route('/apis/fetch-tweets', methods=['POST'])
 def fetch_tweets():
