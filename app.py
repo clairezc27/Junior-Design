@@ -118,6 +118,30 @@ def store_data():
     
     return jsonify(tweets), 200
 
+
+@app.route('/apis/fetch-batches', methods=['POST'])
+def fetch_batches():
+    print('starting')
+    db = firestore.Client()
+    user = request.json['email']
+    ref = db.collection(u'batch_mapping')
+    query = ref.order_by('batch_id', direction='DESCENDING')
+    results = query.get()
+    print('db works')
+    batches = []
+    for doc in results:
+        response = str(doc.to_dict())
+        response = response.replace("\'", "\"")
+        load = json.loads(response)
+        print(load)
+        batches.append(int(load["batch_id"]))
+    return jsonify(batches), 200
+
+@app.route('/apis/fetch-tweets', methods=['POST'])
+def fetch_tweets():
+    return 200
+
+
 @app.route('/')
 def index():
     return app.send_static_file('index.html')

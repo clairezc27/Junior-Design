@@ -3,8 +3,10 @@ import apis from "./apis"
 
 const initialState = {
   isSearchingTweets: false,
-  isFetchingBatch: false,
-  tweets: []
+  isFetchingBatches: false,
+  isFetchingTweets: false,
+  tweets: [],
+  batches: []
 };
 
 const twitterSlice = createSlice({
@@ -22,23 +24,37 @@ const twitterSlice = createSlice({
       state.isSearchingTweets = false;
       state.searchError = action.payload;
     },
-    fetchStart(state) {
-      state.isFetchingBatch = true;
+    fetchBatchesStart(state) {
+      state.isFetchingBatches = true;
     },
-    fetchSucceeded(state, action) {
-      state.isFetchingBatch = false;
+    fetchBatchesSucceeded(state, action) {
+      state.isFetchingBatches = false;
+      state.batches = action.payload;
+      delete state.fetchBatchError;
+    },
+    fetchBatchesFailed(state, action) {
+      state.isFetchingBatches = false;
+      state.fetchBatchError = action.payload;
+    },
+    fetchTweetsStart(state) {
+      state.isFetchingTweets = true;
+    },
+    fetchTweetsSucceeded(state, action) {
+      state.isFetchingTweets = false;
       state.tweets = action.payload;
-      delete state.fetchError;
+      delete state.fetchTweetsError;
     },
-    fetchFailed(state, action) {
-      state.isFetchingBatch = false;
-      state.fetchError = action.payload;
+    fetchTweetsFailed(state, action) {
+      state.isFetchingTweets = false;
+      state.fetchTweetsError = action.payload;
     }
   }
 });
 
+
+
 export const {
-  searchStart, searchSucceeded, fetchStart, fetchSucceeded, searchFailed, fetchFailed
+  searchStart, searchSucceeded, searchFailed, fetchBatchesStart, fetchBatchesSucceeded, fetchBatchesFailed, fetchTweetsStart, fetchTweetsSucceeded, fetchTweetsFailed
 } = twitterSlice.actions;
 
 export const searchTweets = (handle, words, email) => async dispatch => {
@@ -52,13 +68,25 @@ export const searchTweets = (handle, words, email) => async dispatch => {
   }
 }
 
+export const fetchBatches = (user) => async dispatch => {
+  try {
+    dispatch(fetchBatchesStart())
+    const response = await apis.fetchBatches(user)
+    console.log("redux: " + response)
+    dispatch(fetchBatchesSucceeded(response))
+  } catch (err) {
+    dispatch(fetchBatchesFailed(err.toString()))
+  }
+}
+
 export const fetchTweets = (batch) => async dispatch => {
   try {
-    dispatch(fetchStart())
-    const response = await apis.displayTweets(batch)
-    dispatch(fetchSucceeded(response))
+    dispatch(fetchTweetsStart())
+    const response = await apis.fetchTweets(batch)
+    console.log("redux: " + response)
+    dispatch(fetchTweetsSucceeded(response))
   } catch (err) {
-    dispatch(fetchFailed(err.toString()))
+    dispatch(fetchTweetsFailed(err.toString()))
   }
 }
 

@@ -9,7 +9,8 @@ var BASE_URL= '/apis';
 const LOGIN_URL = `${BASE_URL}/login`;
 const SIGNUP_URL = `${BASE_URL}/sign-up`;
 const GET_TWEETS_URL = `${BASE_URL}/search-tweets`;
-const DISPLAY_TWEETS = `${BASE_URL}/display-tweets`;
+const FETCH_BATCHES_URL = `${BASE_URL}/fetch-batches`;
+const FETCH_TWEETS_URL = `${BASE_URL}/fetch-tweets`;
 
 const login = (email, password) => axios.post(LOGIN_URL, {
   email: email,
@@ -27,11 +28,15 @@ const searchTweets = (handle, words, email) => axios.post(GET_TWEETS_URL, {
     email: email
 })
 
-const displayTweets = (batch) => axios.post(DISPLAY_TWEETS, {
+const fetchBatches = (user) => axios.post(FETCH_BATCHES_URL, {
+  user: user
+})
+
+const fetchTweets = (batch) => axios.post(FETCH_TWEETS_URL, {
     batch: batch
 })
   
 
 export default {
-  login, signup, searchTweets
+  login, signup, searchTweets, fetchBatches, fetchTweets
 }

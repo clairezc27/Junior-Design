@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { cloneElement, useEffect } from 'react';
 import { Row, Col } from 'antd';
 import { Button } from 'react-bootstrap';
 import Box from './common/box.js';
 import Header from './common/header.js'
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBatches } from './../features/twitter';
 
 const Dashboard = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const currUser = useSelector(state => state.auth.currUser);
+
+  useEffect(() => {
+    dispatch(fetchBatches(currUser))
+  });
+
+  const batches = useSelector(state => state.twitter.batches);
+  console.log("js: " + batches);
+
   const onClick = () => {
     console.log("pushed")
     history.push("/new-search");

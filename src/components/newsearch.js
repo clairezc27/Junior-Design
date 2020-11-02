@@ -9,15 +9,18 @@ import Tab from 'react-bootstrap/Tab';
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const NewSearch = () => {
   const dispatch = useDispatch();
   const currUser = useSelector(state => state.auth.currUser);
+  const history = useHistory();
   var handle = "";
   var words = "";
 
   const onFinish = () => {
-    dispatch(searchTweets(handle, words, currUser))
+    dispatch(searchTweets(handle, words, currUser));
+    history.push('/dashboard');
   }
 
   const handleFinish = (event) => {
