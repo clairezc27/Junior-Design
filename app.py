@@ -88,50 +88,33 @@ def store_data():
                         break
 
     db = firestore.Client()
-    doc_ref = db.collection(u'batch_mapping')
-    query = doc_ref.order_by(u'batch_id', direction=firestore.Query.DESCENDING)
     bno=100
-    print("result")
-    cities_ref = db.collection(u'batch_mapping')
-    query = cities_ref.order_by(
+    ref = db.collection(u'batch_mapping')
+    query = ref.order_by(
         'batch_id', direction='DESCENDING').limit(1)
     results = query.get()
-    # [END order_simple_limit_desc]
-    print(results)
     for doc in results:
-        print(doc.to_dict())
         response = str(doc.to_dict())
+        response = response.replace("\'", "\"")
         load = json.loads(response)
-        print(load['batch_id'])
-        bno = int(load['batch_id']) + 1
-    # db.child("batch_matching").push({"batch_id": 1, "user": "testuser"}, jsonify(user['idToken']))
-    # bm = db.child("batch_matching").get()
-    # db.child("batch_matching").order_by_child("batch_id").limit_to_first(1).get()
+        bno = int(load["batch_id"]) + 1
 
-    # user = request.json['email']
-    # batch = bno + 1 #get highest number batch from list, add one to it 
-    # today = date.today().strftime("%m/%d/%Y")
-    # db.child("batch_matching").push({
-    #     "batch_id": batch,
-    #     "user": user
-    #     "date": today
-    #     })
+    today = date.today().strftime("%m/%d/%Y")
 
     # create a new batch to add to database
     new_batch = {
-        u'batch_id': bno,
-        u'user': request.json['email']
+        u"batch_id": bno,
+        u"user": str(request.json['email']),
+        u"date": today
     }
     db.collection(u'batch_mapping').add(new_batch)
-    # data = {"batch_id": key}
-    # for i in range(len(tweets)):
-    #     data["id"] = tweet_ids[i]
-    #     data["tweet"] = tweets[i]
-    #     print(data)
-    #     db.collection(u'tweet').document(u'key').set(data)
-    #     db.child("tweets").push(data)
-    print(tweets)
-    print(tweet_ids)
+    
+    data = {"batch_id": bno}
+    for i in range(len(tweets)):
+        data["id"] = tweet_ids[i]
+        data["tweet"] = tweets[i]
+        print(data)
+        db.collection(u'tweet').add(data)
     
     return jsonify(tweets), 200
 
