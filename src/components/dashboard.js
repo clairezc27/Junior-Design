@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(fetchBatches(currUser))
-  });
+  }, []);
 
   const batches = useSelector(state => state.twitter.batches);
   console.log("js: " + batches);

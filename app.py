@@ -123,7 +123,7 @@ def store_data():
 def fetch_batches():
     print('starting')
     db = firestore.Client()
-    user = request.json['email']
+    user = request.json['user']
     ref = db.collection(u'batch_mapping')
     query = ref.order_by('batch_id', direction='DESCENDING')
     results = query.get()
