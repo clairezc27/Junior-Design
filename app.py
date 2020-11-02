@@ -79,7 +79,6 @@ def store_data():
                     break
             if found == False:
                 for w in words.split(","):
-                    print(w)
                     tws = " {} ".format(tweet)
                     if " {} ".format(w) in tws.lower():
                         tid = i["id"]
@@ -88,24 +87,35 @@ def store_data():
                         break
 
     db = firestore.Client()
-    bno=100
-    ref = db.collection(u'batch_mapping')
-    query = ref.order_by(
-        'batch_id', direction='DESCENDING').limit(1)
-    results = query.get()
-    for doc in results:
-        response = str(doc.to_dict())
-        response = response.replace("\'", "\"")
-        load = json.loads(response)
-        bno = int(load["batch_id"]) + 1
+    bno = 1
+    try:
+        ref = db.collection(u'batch_mapping')
+        query = ref.order_by(
+            'batch_id', direction='DESCENDING').limit(1)
+        results = query.get()
+        for doc in results:
+            response = str(doc.to_dict())
+            response = response.replace("\'", "\"")
+            load = json.loads(response)
+            bno = int(load["batch_id"]) + 1
+    except:
+        bno = 1
+    
 
     today = date.today().strftime("%m/%d/%Y")
+    size = 0
+    try:
+        size = len(tweets)
+    except:
+        size = 0
 
     # create a new batch to add to database
     new_batch = {
         u"batch_id": bno,
         u"user": str(request.json['email']),
-        u"date": today
+        u"date": today,
+        u"handle": handle,
+        u"num_tweets": size
     }
     db.collection(u'batch_mapping').add(new_batch)
     
@@ -113,7 +123,6 @@ def store_data():
     for i in range(len(tweets)):
         data["id"] = tweet_ids[i]
         data["tweet"] = tweets[i]
-        print(data)
         db.collection(u'tweet').add(data)
     
     return jsonify(tweets), 200
@@ -128,18 +137,37 @@ def fetch_batches():
     query = ref.order_by('batch_id', direction='DESCENDING')
     results = query.get()
     print('db works')
-    batches = []
+    handles = []
+    dates = []
+    sizez = []
     for doc in results:
         response = str(doc.to_dict())
         response = response.replace("\'", "\"")
         load = json.loads(response)
         print(load)
-        batches.append(int(load["batch_id"]))
-    return jsonify(batches), 200
+        dates.append(int(load["date"]))
+        handles.append(int(load["handle"]))
+        sizez.append(int(load["num_tweets"]))
+        
+    return jsonify(handles), jsonify(dates), jsonify(sizez), 200
 
 @app.route('/apis/fetch-tweets', methods=['POST'])
 def fetch_tweets():
-    return 200
+    print('starting')
+    db = firestore.Client()
+    batch = request.json['batch']
+    ref = db.collection(u'tweets')
+    query = ref.order_by('id', direction='DESCENDING')
+    results = query.get()
+    print('db works')
+    tweets = []
+    for doc in results:
+        response = str(doc.to_dict())
+        response = response.replace("\'", "\"")
+        load = json.loads(response)
+        print(load)
+        tweets.append(int(load["id"]))
+    return jsonify(tweets), 200
 
 
 @app.route('/')
