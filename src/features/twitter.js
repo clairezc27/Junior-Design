@@ -28,7 +28,6 @@ const twitterSlice = createSlice({
       state.isFetchingBatches = true;
     },
     fetchBatchesSucceeded(state, action) {
-      console.log("action: " + action.payload) 
       state.isFetchingBatches = false;
       state.batches = action.payload;
       delete state.fetchBatchError;
