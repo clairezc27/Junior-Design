@@ -73,7 +73,7 @@ export const fetchBatches = (user) => async dispatch => {
     dispatch(fetchBatchesStart())
     const response = await apis.fetchBatches(user)
     console.log("redux: " + response)
-    dispatch(fetchBatchesSucceeded(response))
+    dispatch(fetchBatchesSucceeded(response.data))
   } catch (err) {
     dispatch(fetchBatchesFailed(err.toString()))
   }
