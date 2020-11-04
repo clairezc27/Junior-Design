@@ -155,7 +155,7 @@ def fetch_batches():
     db = firestore.Client()
     user = request.json['user']
     ref = db.collection(u'batch_mapping')
-    query = ref.order_by('batch_id', direction='DESCENDING')
+    query = ref.order_by('batch_id', direction='DESCENDING').where(u'user', u'==', user)
     results = query.get()
     
     to_ret = []
@@ -181,7 +181,7 @@ def fetch_tweets():
     db = firestore.Client()
     batch = request.json['batch']
     ref = db.collection(u'tweets')
-    query = ref.order_by('id', direction='DESCENDING')
+    query = ref.order_by('id', direction='DESCENDING').where(u'batch', u'==', batch)
     results = query.get()
     print('db works')
     tweets = []
