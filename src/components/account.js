@@ -5,10 +5,21 @@ import Header from './common/header.js'
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { logOut } from  './../features/auth'
+import { useHistory } from "react-router-dom";
 
 const Account = () => {
 
-	const currUser = useSelector(state => state.auth.currUser);
+  const currUser = useSelector(state => state.auth.currUser);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const logout = () => {
+    dispatch(logOut());
+    history.push("/");
+  }
+
   return (
     <div className="Home">
       <Header />
@@ -22,7 +33,7 @@ const Account = () => {
 					<br />
 					<br />
 					<br />
-					<Button variant="danger">Delete Account</Button>
+					<Button variant="danger" onClick={logout}>Delete Account</Button>
         </Col>
         <Col style={{textAlign: "left", marginRight: "25%"}} flex={3}>
 					<p>{currUser}</p>

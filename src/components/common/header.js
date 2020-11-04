@@ -12,7 +12,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const currUser = useSelector(state => state.auth.currUser);
-  console.log("user: " + currUser)
+
   const logout = () => {
     dispatch(logOut());
     history.push("/");
