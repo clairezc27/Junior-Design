@@ -163,35 +163,35 @@ def fetch_batches():
         response = str(doc.to_dict())
         response = response.replace("\'", "\"")
         load = json.loads(response)
-        to_add = {
-            "date": load["date"],
-            "handle": load["handle"],
-            "size": int(load["num_tweets"]),
-            "id": int(load["batch_id"])
-        }
-        to_ret.append(to_add)
+        if load["user"] == user:
+            to_add = {
+                "date": load["date"],
+                "handle": load["handle"],
+                "size": int(load["num_tweets"]),
+                "id": int(load["batch_id"])
+            }
+            to_ret.append(to_add)
 
     return jsonify(to_ret), 200
 
-
 @app.route('/apis/fetch-tweets', methods=['POST'])
 def fetch_tweets():
-    print("Fetching tweets")
     db = firestore.Client()
     batch = request.json['batch']
-    ref = db.collection(u'tweets').where(u'batch_id', '==', int(batch))
-    results = ref.get()
+    ref = db.collection(u'tweet')
+    query = ref.order_by('id', direction='DESCENDING')
+    results = query.get()
     to_ret = []
     for doc in results:
         response = str(doc.to_dict())
         response = response.replace("\'", "\"")
         load = json.loads(response)
-        print(load)
-        to_add = {
-            "id": int(load["id"]),
-            "tweet": load["tweet"]
-        }
-        to_ret.append(to_add)
+        if int(load["batch_id"]) == int(batch):
+            to_add = {
+                "id": load["id"],
+                "tweet": load["tweet"]
+            }
+            to_ret.append(to_add)
     return jsonify(to_ret), 200
 
 @app.route('/', defaults={'path': ''})

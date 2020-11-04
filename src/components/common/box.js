@@ -19,6 +19,7 @@ const Box = () => {
 
   const review = (date, handle, id) => {
     var result = date.replaceAll("/", "-")
+    dispatch(fetchTweets(id));
     history.push(`review/${handle}/${result}`);
   }
 

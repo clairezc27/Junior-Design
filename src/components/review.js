@@ -20,15 +20,11 @@ const Review = () => {
       <p>Flagged posts: </p>
     </div>
     {tweets.map(item => (
-      <>
-      <p>{item.id}</p>
-      <p>{item.tweet}</p>
-      <TwitterTweetEmbed tweetId={""+item.id}/>
+      <div style={{marginLeft:"18%"}}>
+      <TwitterTweetEmbed tweetId={item.id}/>
       <br />
-      </>
+      </div>
     ))}
-    <TwitterTweetEmbed tweetId={"1321256215494574085"}/>
-    <br />
     </>
   );
 };
