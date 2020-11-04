@@ -155,7 +155,7 @@ def fetch_batches():
     db = firestore.Client()
     user = request.json['user']
     ref = db.collection(u'batch_mapping')
-    query = ref.order_by('batch_id', direction='DESCENDING').where(u'user', u'==', user)
+    query = ref.order_by('batch_id', direction='DESCENDING')
     results = query.get()
     
     to_ret = []
@@ -163,59 +163,41 @@ def fetch_batches():
         response = str(doc.to_dict())
         response = response.replace("\'", "\"")
         load = json.loads(response)
-        print(load)
-        to_add = {
-            "date": load["date"],
-            "handle": load["handle"],
-            "size": int(load["num_tweets"])
-        }
-        to_ret.append(to_add)
+        if load["user"] == user:
+            to_add = {
+                "date": load["date"],
+                "handle": load["handle"],
+                "size": int(load["num_tweets"]),
+                "id": int(load["batch_id"])
+            }
+            to_ret.append(to_add)
 
-    print(to_ret)
     return jsonify(to_ret), 200
-
 
 @app.route('/apis/fetch-tweets', methods=['POST'])
 def fetch_tweets():
-    print('starting')
     db = firestore.Client()
     batch = request.json['batch']
-    ref = db.collection(u'tweets')
-    query = ref.order_by('id', direction='DESCENDING').where(u'batch', u'==', batch)
+    ref = db.collection(u'tweet')
+    query = ref.order_by('id', direction='DESCENDING')
     results = query.get()
-    print('db works')
-    tweets = []
+    to_ret = []
     for doc in results:
         response = str(doc.to_dict())
         response = response.replace("\'", "\"")
         load = json.loads(response)
-        print(load)
-        tweets.append(int(load["id"]))
-    return jsonify(tweets), 200
+        if int(load["batch_id"]) == int(batch):
+            to_add = {
+                "id": load["id"],
+                "tweet": load["tweet"]
+            }
+            to_ret.append(to_add)
+    return jsonify(to_ret), 200
 
-
-@app.route('/')
-def index():
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
     return app.send_static_file('index.html')
-@app.route('/dashboard')
-def dashboard():
-    return app.send_static_file('index.html')
-@app.route('/new-search')
-def new_search():
-    return app.send_static_file('index.html')
-@app.route('/review')
-def review():
-    return app.send_static_file('index.html')
-@app.route('/login')
-def loginpage():
-    return app.send_static_file('index.html')
-@app.route('/signup')
-def signuppage():
-    return app.send_static_file('index.html')
-@app.route('/account')
-def account():
-    return app.send_static_file('index.html')
-
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5000, debug=True)
