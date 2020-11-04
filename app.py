@@ -123,7 +123,7 @@ def store_data():
         bno = 1
     
 
-    today = date.today().strftime("%m/%d/%Y")
+    today = date.today().strftime("%d-%m-%Y %I:%M %p")
     size = 0
     try:
         size = len(tweets)
