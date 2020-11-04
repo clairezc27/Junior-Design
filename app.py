@@ -146,7 +146,8 @@ def fetch_batches():
         to_add = {
             "date": load["date"],
             "handle": load["handle"],
-            "size": int(load["num_tweets"])
+            "size": int(load["num_tweets"]),
+            "id": int(load["batch_id"])
         }
         to_ret.append(to_add)
 
