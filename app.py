@@ -9,6 +9,7 @@ from datetime import date
 import firebase_admin
 from firebase_admin import credentials
 from google.cloud import firestore
+from firebase_admin import auth
 
 with open('inappropriatelist.txt', 'r') as il:
   inapp = il.readlines()
@@ -45,6 +46,17 @@ def login():
     }
     results = db.child("users").push(data, user['idToken'])
     return jsonify(data), 200
+
+@app.route('/apis/delete-user', methods=['POST'])
+def delete_user():
+    print("deleting user")
+    email = request.json['email']
+    user = auth.get_user_by_email(email)
+    print("user")
+    print(user.uid)
+    auth.delete_user(user.uid)
+    return {}, 200
+
 
 @app.route('/apis/search-tweets', methods=['POST'])
 def store_data():

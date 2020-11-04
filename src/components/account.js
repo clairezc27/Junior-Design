@@ -6,8 +6,9 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { logOut } from  './../features/auth'
+import { deleteUser } from  './../features/auth'
 import { useHistory } from "react-router-dom";
+import { clearStore } from './../features/twitter';
 
 const Account = () => {
 
@@ -15,8 +16,9 @@ const Account = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const logout = () => {
-    dispatch(logOut());
+  const deleteClicked = () => {
+    dispatch(deleteUser(currUser));
+    dispatch(clearStore());
     history.push("/");
   }
 
@@ -33,7 +35,7 @@ const Account = () => {
 					<br />
 					<br />
 					<br />
-					<Button variant="danger" onClick={logout}>Delete Account</Button>
+					<Button variant="danger" onClick={deleteClicked}>Delete Account</Button>
         </Col>
         <Col style={{textAlign: "left", marginRight: "25%"}} flex={3}>
 					<p>{currUser}</p>
