@@ -24,7 +24,7 @@ class App extends Component {
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path = "/new-search" component = {NewSearch} />
-              <Route exact path = "/review/:batchId" component = {Review} />
+              <Route exact path = "/review/:handle/:date" component = {Review} />
               <Route exact path = "/account" component = {Account} />
             </Switch>
           </div>

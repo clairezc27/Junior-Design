@@ -158,7 +158,7 @@ def fetch_tweets():
     print("Fetching tweets")
     db = firestore.Client()
     batch = request.json['batch']
-    ref = db.collection(u'tweets').where(u'batch_id', '==', batch)
+    ref = db.collection(u'tweets').where(u'batch_id', '==', int(batch))
     results = ref.get()
     to_ret = []
     for doc in results:

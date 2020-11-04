@@ -17,9 +17,9 @@ const Box = () => {
   const batches = useSelector(state => state.twitter.batches);
   const history = useHistory();
 
-  const review = (id) => {
-    dispatch(fetchTweets(id));
-    history.push(`review/${id}`);
+  const review = (date, handle, id) => {
+    var result = date.replaceAll("/", "-")
+    history.push(`review/${handle}/${result}`);
   }
 
   return (
@@ -28,7 +28,7 @@ const Box = () => {
       <Row>
         <Col span={8}>
           <div className="box">
-            <Button variant="link" className="batch-btn" onClick={(() => {review(item.id)})}>
+            <Button variant="link" className="batch-btn" onClick={(() => {review(item.date, item.handle, item.id)})}>
               {item.date}
             </Button>
           </div>
