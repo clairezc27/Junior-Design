@@ -49,14 +49,23 @@ def login():
 
 @app.route('/apis/delete-user', methods=['POST'])
 def delete_user():
-    print("deleting user")
     email = request.json['email']
     user = auth.get_user_by_email(email)
-    print("user")
-    print(user.uid)
     auth.delete_user(user.uid)
     return {}, 200
 
+@app.route('/apis/reset-user', methods=['POST'])
+def reset_user():
+    email = request.json['email']
+    user = auth.get_user_by_email(email)
+    auth.delete_user(user.uid)
+
+    auth_fb = firebase.auth()
+    auth_fb.create_user_with_email_and_password(request.json['email'], request.json['password'])
+    data = {
+        'email': email
+        }   
+    return jsonify(data), 200
 
 @app.route('/apis/search-tweets', methods=['POST'])
 def store_data():

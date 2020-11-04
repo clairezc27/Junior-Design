@@ -5,7 +5,8 @@ const initialState = {
   isCurrentUserFetched: false,
   isLoggingIn: false,
   isSigningUp: false,
-  isDeleting: false
+  isDeleting: false,
+  isReseting: false
 };
 
 const usersSlice = createSlice({
@@ -54,13 +55,26 @@ const usersSlice = createSlice({
     deleteFailed(state, action) {
       state.isDeleting = false;
       state.deleteError = action.payload;
+    },
+    resetStart(state) {
+      state.isReseting = true;
+      delete state.resetError;
+    },
+    resetSucceeded(state, action) {
+      state.isReseting = false;
+      state.currUser = action.payload;
+    },
+    resetFailed(state, action) {
+      state.isReseting = false;
+      state.resetError = action.payload;
     }
   }
 });
 
 export const {
   getCurrentUser, loginStart, loginSucceeded, loginFailed, logout,
-  signupStart, signupSucceeded, signupFailed, deleteStart, deleteSucceeded, deleteFailed
+  signupStart, signupSucceeded, signupFailed, deleteStart, deleteSucceeded,
+  deleteFailed, resetStart, resetSucceeded, resetFailed
 } = usersSlice.actions;
 
 export const login = (email, password, callbackSucceed, callbackFailed) => async dispatch => {
@@ -83,7 +97,7 @@ export const signUp = (email, password, callbackSucceed, callbackFailed) => asyn
     dispatch(signupSucceeded(response.data.email));
     callbackSucceed();
   } catch (err) {
-    dispatch(signupFailed(err.response.data.message));
+    dispatch(signupFailed(err.response));
     callbackFailed();
   }
 };
@@ -103,6 +117,16 @@ export const deleteUser = (email) => async dispatch => {
     dispatch(deleteSucceeded());
   } catch (err) {
     dispatch(deleteFailed(err.response));
+  }
+}
+
+export const resetUser = (email, password) => async dispatch => {
+  try {
+    dispatch(resetStart());
+    const response = await apis.resetUser(email, password);
+    dispatch(resetSucceeded(response.data.email));
+  } catch (err) {
+    dispatch(resetFailed(err.response));
   }
 }
 

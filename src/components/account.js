@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteUser } from  './../features/auth'
+import { deleteUser, resetUser } from  './../features/auth'
 import { useHistory } from "react-router-dom";
 import { clearStore } from './../features/twitter';
 
@@ -15,11 +15,20 @@ const Account = () => {
   const currUser = useSelector(state => state.auth.currUser);
   const dispatch = useDispatch();
   const history = useHistory();
+  var pwd = "";
 
   const deleteClicked = () => {
     dispatch(deleteUser(currUser));
     dispatch(clearStore());
     history.push("/");
+  }
+
+  const pwdChange = (event) => {
+    pwd = event.target.value;
+  }
+
+  const resetClicked = () => {
+    dispatch(resetUser(currUser, pwd));
   }
 
   return (
@@ -44,10 +53,10 @@ const Account = () => {
 					<br />
 					<InputGroup className="mb-3">
 						<Form.Group>
-							<Form.Control type="password" placeholder="New password" /> 
+							<Form.Control type="password" placeholder="New password" onChange={pwdChange}/> 
 							<Form.Control type="password" placeholder="Confirm password" />
 							<br />
-							<Button type="primary">Submit</Button>
+							<Button type="primary" onClick={resetClicked}>Submit</Button>
 						</Form.Group>
 					</InputGroup>
         </Col>
