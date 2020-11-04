@@ -142,7 +142,6 @@ def fetch_batches():
         response = str(doc.to_dict())
         response = response.replace("\'", "\"")
         load = json.loads(response)
-        print(load)
         to_add = {
             "date": load["date"],
             "handle": load["handle"],
@@ -151,51 +150,33 @@ def fetch_batches():
         }
         to_ret.append(to_add)
 
-    print(to_ret)
     return jsonify(to_ret), 200
 
 
 @app.route('/apis/fetch-tweets', methods=['POST'])
 def fetch_tweets():
-    print('starting')
+    print("Fetching tweets")
     db = firestore.Client()
     batch = request.json['batch']
-    ref = db.collection(u'tweets')
-    query = ref.order_by('id', direction='DESCENDING')
-    results = query.get()
-    print('db works')
-    tweets = []
+    ref = db.collection(u'tweets').where(u'batch_id', '==', batch)
+    results = ref.get()
+    to_ret = []
     for doc in results:
         response = str(doc.to_dict())
         response = response.replace("\'", "\"")
         load = json.loads(response)
         print(load)
-        tweets.append(int(load["id"]))
-    return jsonify(tweets), 200
+        to_add = {
+            "id": int(load["id"]),
+            "tweet": load["tweet"]
+        }
+        to_ret.append(to_add)
+    return jsonify(to_ret), 200
 
-
-@app.route('/')
-def index():
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
     return app.send_static_file('index.html')
-@app.route('/dashboard')
-def dashboard():
-    return app.send_static_file('index.html')
-@app.route('/new-search')
-def new_search():
-    return app.send_static_file('index.html')
-@app.route('/review')
-def review():
-    return app.send_static_file('index.html')
-@app.route('/login')
-def loginpage():
-    return app.send_static_file('index.html')
-@app.route('/signup')
-def signuppage():
-    return app.send_static_file('index.html')
-@app.route('/account')
-def account():
-    return app.send_static_file('index.html')
-
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5000, debug=True)

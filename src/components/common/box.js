@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Row, Col } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBatches } from './../../features/twitter';
+import { fetchBatches, fetchTweets } from './../../features/twitter';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
@@ -18,6 +18,7 @@ const Box = () => {
   const history = useHistory();
 
   const review = (id) => {
+    dispatch(fetchTweets(id));
     history.push(`review/${id}`);
   }
 

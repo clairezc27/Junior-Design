@@ -21,7 +21,7 @@ const Dashboard = () => {
       <Row>
         <Col span={8}>Order Date</Col>
         <Col span={8}>Twitter Handle</Col>
-        <Col span={8}>Status</Col>
+        <Col span={8}># of Flagged Tweets</Col>
       </Row>
       <Box />
     </div>
