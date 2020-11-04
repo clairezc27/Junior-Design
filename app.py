@@ -21,7 +21,7 @@ config = {
   "storageBucket": "twitter-mistake.appspot.com"
 }
 
-cred_other = credentials.Certificate("/Users/clairechen/Downloads/twitter-flagger-fb.json")
+cred_other = credentials.Certificate("/Users/brett/Downloads/twitter-flagger-fb.json")
 firebase_admin.initialize_app(cred_other)
 
 # cred = credentials.ApplicationDefault()
