@@ -5,6 +5,7 @@ import { IconContext } from "react-icons";
 import { logOut } from  './../../features/auth';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import { clearInfo } from './../../features/twitter';
 
 
 const Header = () => {
@@ -15,6 +16,7 @@ const Header = () => {
 
   const logout = () => {
     dispatch(logOut());
+    dispatch(clearInfo());
     history.push("/");
   }
 
@@ -22,7 +24,7 @@ const Header = () => {
     history.push("/account")
   }
   
-  const dashboard =() => {
+  const dashboard = () => {
     history.push("/dashboard")
   }
 
