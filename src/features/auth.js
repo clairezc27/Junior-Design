@@ -5,6 +5,8 @@ const initialState = {
   isCurrentUserFetched: false,
   isLoggingIn: false,
   isSigningUp: false,
+  isDeleting: false,
+  isReseting: false
 };
 
 const usersSlice = createSlice({
@@ -40,13 +42,39 @@ const usersSlice = createSlice({
     signupFailed(state, action) {
       state.isSigningUp = false;
       state.signupError = action.payload;
+    },
+    deleteStart(state) {
+      state.isDeleting = true;
+      delete state.deleteError;
+    },
+    deleteSucceeded(state) {
+      localStorage.removeItem('currentUser');
+      delete state.currUser;
+      state.deleteError = false;
+    },
+    deleteFailed(state, action) {
+      state.isDeleting = false;
+      state.deleteError = action.payload;
+    },
+    resetStart(state) {
+      state.isReseting = true;
+      delete state.resetError;
+    },
+    resetSucceeded(state, action) {
+      state.isReseting = false;
+      state.currUser = action.payload;
+    },
+    resetFailed(state, action) {
+      state.isReseting = false;
+      state.resetError = action.payload;
     }
   }
 });
 
 export const {
   getCurrentUser, loginStart, loginSucceeded, loginFailed, logout,
-  signupStart, signupSucceeded, signupFailed
+  signupStart, signupSucceeded, signupFailed, deleteStart, deleteSucceeded,
+  deleteFailed, resetStart, resetSucceeded, resetFailed
 } = usersSlice.actions;
 
 export const login = (email, password, callbackSucceed, callbackFailed) => async dispatch => {
@@ -66,21 +94,40 @@ export const signUp = (email, password, callbackSucceed, callbackFailed) => asyn
   try {
     dispatch(signupStart());
     const response = await apis.signup(email, password);
-    console.log("response: " + response.data.email)
     dispatch(signupSucceeded(response.data.email));
     callbackSucceed();
   } catch (err) {
-    dispatch(signupFailed(err.response.data.message));
+    dispatch(signupFailed(err.response));
     callbackFailed();
   }
 };
 
-export const logOut = (user) => async dispatch => {
+export const logOut = () => async dispatch => {
   try {
     dispatch(logout());
   } catch (err) {
 
   }
 };
+
+export const deleteUser = (email) => async dispatch => {
+  try {
+    dispatch(deleteStart());
+    await apis.deleteUser(email);
+    dispatch(deleteSucceeded());
+  } catch (err) {
+    dispatch(deleteFailed(err.response));
+  }
+}
+
+export const resetUser = (email, password) => async dispatch => {
+  try {
+    dispatch(resetStart());
+    const response = await apis.resetUser(email, password);
+    dispatch(resetSucceeded(response.data.email));
+  } catch (err) {
+    dispatch(resetFailed(err.response));
+  }
+}
 
 export default usersSlice.reducer;

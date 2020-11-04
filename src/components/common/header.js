@@ -5,6 +5,7 @@ import { IconContext } from "react-icons";
 import { logOut } from  './../../features/auth';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import { clearInfo } from './../../features/twitter';
 
 
 const Header = () => {
@@ -12,9 +13,10 @@ const Header = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const currUser = useSelector(state => state.auth.currUser);
-  console.log("user: " + currUser)
+
   const logout = () => {
     dispatch(logOut());
+    dispatch(clearInfo());
     history.push("/");
   }
 
@@ -22,17 +24,19 @@ const Header = () => {
     history.push("/account")
   }
   
-  const dashboard =() => {
+  const dashboard = () => {
     history.push("/dashboard")
   }
 
   return (
     <Navbar expand="xl" sticky="top" bg="primary" variant="dark" className="justify-content-between">
-      <Navbar.Brand onClick={{dashboard}} style={{ fontSize: "36px"}}>
-        <IconContext.Provider value={{ style: { fontSize: "20px", color: "white", marginRight: "15px" } }}>
-          <FaFeatherAlt />
-        </IconContext.Provider>Social Media Mistake Flagger
-      </Navbar.Brand>
+      <Button variant="link" onClick={dashboard}>
+        <Navbar.Brand style={{ fontSize: "36px"}}>
+          <IconContext.Provider value={{ style: { fontSize: "20px", color: "white", marginRight: "15px" } }}>
+            <FaFeatherAlt />
+          </IconContext.Provider>Social Media Mistake Flagger
+        </Navbar.Brand>
+      </Button>
       {currUser &&
         <>
         <Button className="justify-content-end logout-btn" type="primary" onClick={logout}>Logout</Button>

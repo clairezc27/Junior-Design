@@ -47,6 +47,10 @@ const twitterSlice = createSlice({
     fetchTweetsFailed(state, action) {
       state.isFetchingTweets = false;
       state.fetchTweetsError = action.payload;
+    },
+    clearInfo(state) {
+      state.tweets = [];
+      state.batches = [];
     }
   }
 });
@@ -54,7 +58,9 @@ const twitterSlice = createSlice({
 
 
 export const {
-  searchStart, searchSucceeded, searchFailed, fetchBatchesStart, fetchBatchesSucceeded, fetchBatchesFailed, fetchTweetsStart, fetchTweetsSucceeded, fetchTweetsFailed
+  searchStart, searchSucceeded, searchFailed, fetchBatchesStart,
+  fetchBatchesSucceeded, fetchBatchesFailed, fetchTweetsStart,
+  fetchTweetsSucceeded, fetchTweetsFailed, clearInfo
 } = twitterSlice.actions;
 
 export const searchTweets = (handle, words, email) => async dispatch => {
@@ -85,6 +91,10 @@ export const fetchTweets = (batch) => async dispatch => {
   } catch (err) {
     dispatch(fetchTweetsFailed(err.toString()))
   }
+}
+
+export const clearStore = () => async dispatch => {
+  dispatch(clearInfo());
 }
 
 export default twitterSlice.reducer;
