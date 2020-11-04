@@ -28,11 +28,13 @@ const Header = () => {
 
   return (
     <Navbar expand="xl" sticky="top" bg="primary" variant="dark" className="justify-content-between">
-      <Navbar.Brand onClick={{dashboard}} style={{ fontSize: "36px"}}>
-        <IconContext.Provider value={{ style: { fontSize: "20px", color: "white", marginRight: "15px" } }}>
-          <FaFeatherAlt />
-        </IconContext.Provider>Social Media Mistake Flagger
-      </Navbar.Brand>
+      <Button variant="link" onClick={dashboard}>
+        <Navbar.Brand style={{ fontSize: "36px"}}>
+          <IconContext.Provider value={{ style: { fontSize: "20px", color: "white", marginRight: "15px" } }}>
+            <FaFeatherAlt />
+          </IconContext.Provider>Social Media Mistake Flagger
+        </Navbar.Brand>
+      </Button>
       {currUser &&
         <>
         <Button className="justify-content-end logout-btn" type="primary" onClick={logout}>Logout</Button>

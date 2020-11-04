@@ -22,7 +22,7 @@ const Account = () => {
 					<br />
 					<br />
 					<br />
-					<Button typ="primary">Delete Account</Button>
+					<Button variant="danger">Delete Account</Button>
         </Col>
         <Col style={{textAlign: "left", marginRight: "25%"}} flex={3}>
 					<p>{currUser}</p>
@@ -30,7 +30,7 @@ const Account = () => {
 					<p>******</p>
 					<br />
 					<InputGroup className="mb-3">
-						<Form.Group controlId="formBasicPassword">
+						<Form.Group>
 							<Form.Control type="password" placeholder="New password" /> 
 							<Form.Control type="password" placeholder="Confirm password" />
 							<br />
