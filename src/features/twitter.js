@@ -66,8 +66,7 @@ export const {
 export const searchTweets = (handle, words, email) => async dispatch => {
   try {
     dispatch(searchStart())
-    const response = await apis.searchTweets(handle, words, email)
-    console.log(response)
+    await apis.searchTweets(handle, words, email)
     dispatch(searchSucceeded())
   } catch (err) {
     dispatch(searchFailed(err.toString()))
@@ -78,7 +77,6 @@ export const fetchBatches = (user) => async dispatch => {
   try {
     dispatch(fetchBatchesStart())
     const response = await apis.fetchBatches(user)
-    console.log("redux: " + response)
     dispatch(fetchBatchesSucceeded(response.data))
   } catch (err) {
     dispatch(fetchBatchesFailed(err.toString()))
@@ -89,8 +87,7 @@ export const fetchTweets = (batch) => async dispatch => {
   try {
     dispatch(fetchTweetsStart())
     const response = await apis.fetchTweets(batch)
-    console.log("redux: " + response)
-    dispatch(fetchTweetsSucceeded(response))
+    dispatch(fetchTweetsSucceeded(response.data))
   } catch (err) {
     dispatch(fetchTweetsFailed(err.toString()))
   }

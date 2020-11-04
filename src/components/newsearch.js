@@ -84,8 +84,8 @@ const NewSearch = () => {
             <h3>Review Search Details</h3>
             <h5>Almost Done! Before submitting, please review the information below. If all is 
             correct, complete your order by clicking "Submit."</h5>
-            <p>Twitter handle: @{handle}</p>
-            <p>Additional Search Parameters: {words}</p>
+            <p>Twitter handle: @</p> <p>{handle}</p>
+            <p>Additional Search Parameters: </p> <p>{words}</p>
             <Button type="primary" className="submit-form" htmlType="submit" onClick={onFinish}>Submit</Button>
           </Tab.Pane>
         </Tab.Content>

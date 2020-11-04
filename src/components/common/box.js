@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { Row, Col } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBatches } from './../../features/twitter';
+import { fetchBatches, fetchTweets } from './../../features/twitter';
+import { Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 const Box = () => {
 
@@ -13,6 +15,13 @@ const Box = () => {
   }, []);
 
   const batches = useSelector(state => state.twitter.batches);
+  const history = useHistory();
+
+  const review = (date, handle, id) => {
+    var result = date.replaceAll("/", "-")
+    dispatch(fetchTweets(id));
+    history.push(`review/${handle}/${result}`);
+  }
 
   return (
     <>
@@ -20,7 +29,9 @@ const Box = () => {
       <Row>
         <Col span={8}>
           <div className="box">
-            {item.date}
+            <Button variant="link" className="batch-btn" onClick={(() => {review(item.date, item.handle, item.id)})}>
+              {item.date}
+            </Button>
           </div>
         </Col>
         <Col span={8}>
