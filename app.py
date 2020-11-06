@@ -21,13 +21,13 @@ config = {
   "storageBucket": "twitter-mistake.appspot.com"
 }
 
-cred_other = credentials.Certificate("/Users/clairechen/Downloads/twitter-flagger-fb.json")
-firebase_admin.initialize_app(cred_other)
+# cred_other = credentials.Certificate("/Users/clairechen/Downloads/twitter-flagger-fb.json")
+# firebase_admin.initialize_app(cred_other)
 
-# cred = credentials.ApplicationDefault()
-# firebase_admin.initialize_app(cred, {
-#   'projectId': 'twitter-mistake'
-# })
+cred = credentials.ApplicationDefault()
+firebase_admin.initialize_app(cred, {
+  'projectId': 'twitter-mistake'
+})
 firebase = Firebase(config)
 
 @app.route('/apis/sign-up', methods=['POST'])
