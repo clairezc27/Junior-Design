@@ -198,7 +198,32 @@ def fetch_tweets():
             to_ret.append(to_add)
     return jsonify(to_ret), 200
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def catch_all(path):
+#     return app.send_static_file('index.html')
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+@app.route('/dashboard')
+def dashboard():
+    return app.send_static_file('index.html')
+@app.route('/new-search')
+def new_search():
+    return app.send_static_file('index.html')
+@app.route('/review')
+def review():
+    return app.send_static_file('index.html')
+@app.route('/login')
+def loginpage():
+    return app.send_static_file('index.html')
+@app.route('/signup')
+def signuppage():
+    return app.send_static_file('index.html')
+@app.route('/review')
+def review():
+    return app.send_static_file('index.html')
+@app.route('/account')
+def account():
     return app.send_static_file('index.html')
