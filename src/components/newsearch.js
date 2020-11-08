@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Nav } from 'react-bootstrap';
 import Header from './common/header.js';
 import Button from 'react-bootstrap/Button';
@@ -15,8 +15,9 @@ const NewSearch = () => {
   const dispatch = useDispatch();
   const currUser = useSelector(state => state.auth.currUser);
   const history = useHistory();
-  var handle = "";
-  var words = "";
+  const [handle, setHandle] = useState();
+  const [words, setWords] = useState();
+
 
   const onFinish = () => {
     dispatch(searchTweets(handle, words, currUser));
@@ -24,11 +25,11 @@ const NewSearch = () => {
   }
 
   const handleFinish = (event) => {
-    handle = event.target.value;
+    setHandle(event.target.value);
   }
 
   const wordsFinish = (event) => {
-    words = event.target.value;
+    setWords(event.target.value)
   }
     
   return (
@@ -84,8 +85,8 @@ const NewSearch = () => {
             <h3>Review Search Details</h3>
             <h5>Almost Done! Before submitting, please review the information below. If all is 
             correct, complete your order by clicking "Submit."</h5>
-            <p>Twitter handle: @</p> <p>{handle}</p>
-            <p>Additional Search Parameters: </p> <p>{words}</p>
+            <p>Twitter handle: @{handle}</p>
+            <p>Additional Search Parameters: {words}</p>
             <Button type="primary" className="submit-form" htmlType="submit" onClick={onFinish}>Submit</Button>
           </Tab.Pane>
         </Tab.Content>
