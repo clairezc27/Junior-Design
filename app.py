@@ -81,6 +81,7 @@ def store_data():
         handle
     )
     headers = {"Authorization": "Bearer {}".format(bearer_token)}
+    # runs Twitter API request
     response = requests.request("GET", url, headers=headers)
     if response.status_code != 200:
         raise Exception(response.status_code, response.text)
@@ -93,18 +94,18 @@ def store_data():
         for i in data: # i is each tweet in data
             found = False
             tweet = i["text"]
-            for w in inapp:
+            for w in inapp: #checks if word in in our inappropriate list
                 word = w.rstrip('\n')
-                tws = " {} ".format(tweet)
+                tws = " {} ".format(tweet) # tws = tweet with space to ensure first and last word of tweet are checked
                 if " {} ".format(word) in tws.lower():
                     tid = i["id"]
                     tweets.append(tweet)
                     tweet_ids.append(tid)
                     found = True
                     break
-            if found == False:
+            if found == False: # if not in inappropriate list, checks if its in user's custom input words list
                 for w in words.split(","):
-                    tws = " {} ".format(tweet)
+                    tws = " {} ".format(tweet) # tws = tweet with space to ensure first and last word of tweet are checked
                     if " {} ".format(w) in tws.lower():
                         tid = i["id"]
                         tweets.append(tweet)
@@ -113,6 +114,7 @@ def store_data():
 
     db = firestore.Client()
     bno = 1
+    # tries to retreive highest batch_id and add 1 to it, if no batches found, start at 1
     try:
         ref = db.collection(u'batch_mapping')
         query = ref.order_by(
@@ -144,8 +146,9 @@ def store_data():
     }
     db.collection(u'batch_mapping').add(new_batch)
     
+    # creates json object of all flagged tweets to return
     data = {"batch_id": bno}
-    for i in range(len(tweets)):
+    for i in range(size):
         data["id"] = tweet_ids[i]
         data["tweet"] = tweets[i]
         db.collection(u'tweet').add(data)
@@ -155,13 +158,14 @@ def store_data():
 
 @app.route('/apis/fetch-batches', methods=['POST'])
 def fetch_batches():
-
+    # gets all the batches associated with a specific user
     db = firestore.Client()
     user = request.json['user']
     ref = db.collection(u'batch_mapping')
     query = ref.order_by('batch_id', direction='DESCENDING')
     results = query.get()
     
+    # creates json object of all of one user's batches to return
     to_ret = []
     for doc in results:
         response = str(doc.to_dict())
@@ -180,11 +184,14 @@ def fetch_batches():
 
 @app.route('/apis/fetch-tweets', methods=['POST'])
 def fetch_tweets():
+    # gets all the tweets in a specific batch
     db = firestore.Client()
     batch = request.json['batch']
     ref = db.collection(u'tweet')
     query = ref.order_by('id', direction='DESCENDING')
     results = query.get()
+
+    # creates json object of all of one batch's tweets to return
     to_ret = []
     for doc in results:
         response = str(doc.to_dict())
