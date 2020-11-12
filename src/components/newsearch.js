@@ -11,6 +11,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+/* Allow user to place a new search request for inputted handle and any additional search parameters */
 const NewSearch = () => {
   const dispatch = useDispatch();
   const currUser = useSelector(state => state.auth.currUser);
@@ -31,7 +32,7 @@ const NewSearch = () => {
   const wordsFinish = (event) => {
     setWords(event.target.value)
   }
-    
+      
   return (
     <>
     <Header />
@@ -41,13 +42,16 @@ const NewSearch = () => {
         <Nav.Item>
           <Nav.Link eventKey="1">Step 1: Twitter Handle</Nav.Link>
         </Nav.Item>
+
         <Nav.Item>
           <Nav.Link eventKey="2">Step 2: Search Parameters</Nav.Link>
         </Nav.Item>
+
         <Nav.Item>
           <Nav.Link eventKey="3">Step 3: Review and Submit</Nav.Link>
         </Nav.Item>
       </Nav>
+
       <Form className="tab">
         <Tab.Content>
           <Tab.Pane eventKey="1">
@@ -73,6 +77,7 @@ const NewSearch = () => {
               </InputGroup>
             </Form.Group>
           </Tab.Pane>
+
           <Tab.Pane eventKey="2">
             <p>Our application will search your tweets against a comprehensive list our team 
             of developers created to find any potential inappropriate language. If you would like to add your own words
@@ -81,6 +86,7 @@ const NewSearch = () => {
               <FormControl as="textarea" placeholder="Enter words, separated by commas, you wish to additionally query for." />   
             </Form.Group>
           </Tab.Pane>
+
           <Tab.Pane eventKey="3">
             <h3>Review Search Details</h3>
             <h5>Almost Done! Before submitting, please review the information below. If all is 
@@ -93,7 +99,7 @@ const NewSearch = () => {
       </Form>
     </Tab.Container>
     </>
-      
+   
   );
 };
 
