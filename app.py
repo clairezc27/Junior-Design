@@ -11,8 +11,11 @@ from firebase_admin import credentials
 from google.cloud import firestore
 from firebase_admin import auth
 
+# reads text file of inappropriate words and saves to inapp
 with open('inappropriatelist.txt', 'r') as il:
   inapp = il.readlines()
+
+# connects to our Flask framework
 app = Flask(__name__, static_folder='build/', static_url_path='/')
 config = {
   "apiKey": "AIzaSyBT5w99MAZ9DNHpAE5QrvJGIzIDrTE1Uv0",
@@ -24,12 +27,14 @@ config = {
 # cred_other = credentials.Certificate("/Users/clairechen/Downloads/twitter-flagger-fb.json")
 # firebase_admin.initialize_app(cred_other)
 
+# connects to Firebase database
 cred = credentials.ApplicationDefault()
 firebase_admin.initialize_app(cred, {
   'projectId': 'twitter-mistake'
 })
 firebase = Firebase(config)
 
+# method to sign up new users and store in database
 @app.route('/apis/sign-up', methods=['POST'])
 def store_user():
     auth = firebase.auth()    
@@ -39,9 +44,11 @@ def store_user():
         }   
     return jsonify(data), 200
 
+# method to allow users to login
 @app.route('/apis/login', methods=['POST'])
 def login():
     auth = firebase.auth()
+    # checks that user is in database
     user = auth.sign_in_with_email_and_password(request.json['email'], request.json['password'])
     user = auth.refresh(user['refreshToken'])
     db = firebase.database()
@@ -51,6 +58,7 @@ def login():
     results = db.child("users").push(data, user['idToken'])
     return jsonify(data), 200
 
+# method to allow users to delete account
 @app.route('/apis/delete-user', methods=['POST'])
 def delete_user():
     email = request.json['email']
@@ -58,6 +66,7 @@ def delete_user():
     auth.delete_user(user.uid)
     return {}, 200
 
+# method to allow users to modify password
 @app.route('/apis/reset-user', methods=['POST'])
 def reset_user():
     email = request.json['email']
@@ -71,6 +80,7 @@ def reset_user():
         }   
     return jsonify(data), 200
 
+# method to get flagged tweets
 @app.route('/apis/search-tweets', methods=['POST'])
 def store_data():
     # gets flagged tweets from api, stores them in db
@@ -86,7 +96,7 @@ def store_data():
     if response.status_code != 200:
         raise Exception(response.status_code, response.text)
     json_response =  response.json()
-
+    # parsing through tweets to find ones that are inappropriate
     tweets = []
     tweet_ids = []
     if json_response['meta']['result_count'] > 0:
@@ -114,7 +124,7 @@ def store_data():
 
     db = firestore.Client()
     bno = 1
-    # tries to retreive highest batch_id and add 1 to it, if no batches found, start at 1
+    # tries to retrieve highest batch_id and add 1 to it, if no batches found, start at 1
     try:
         ref = db.collection(u'batch_mapping')
         query = ref.order_by(
@@ -126,8 +136,7 @@ def store_data():
             load = json.loads(response)
             bno = int(load["batch_id"]) + 1
     except:
-        bno = 1
-    
+        bno = 1 
 
     today = date.today().strftime("%m/%d/%Y")
     size = 0
