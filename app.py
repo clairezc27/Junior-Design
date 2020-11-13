@@ -146,6 +146,7 @@ def store_data():
         size = 0
 
     # create a new batch to add to database
+    # batch represents a user's search
     new_batch = {
         u"batch_id": bno,
         u"user": str(request.json['email']),
@@ -164,10 +165,9 @@ def store_data():
     
     return jsonify(tweets), 200
 
-
+# gets all the batches associated with a specific user
 @app.route('/apis/fetch-batches', methods=['POST'])
 def fetch_batches():
-    # gets all the batches associated with a specific user
     db = firestore.Client()
     user = request.json['user']
     ref = db.collection(u'batch_mapping')
@@ -191,9 +191,9 @@ def fetch_batches():
 
     return jsonify(to_ret), 200
 
+# gets all tweets in a specific batch
 @app.route('/apis/fetch-tweets', methods=['POST'])
 def fetch_tweets():
-    # gets all the tweets in a specific batch
     db = firestore.Client()
     batch = request.json['batch']
     ref = db.collection(u'tweet')
@@ -219,6 +219,7 @@ def fetch_tweets():
 # def catch_all(path):
 #     return app.send_static_file('index.html')
 
+# routing the web app
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
