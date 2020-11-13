@@ -32,7 +32,7 @@ const NewSearch = () => {
   const wordsFinish = (event) => {
     setWords(event.target.value)
   }
-      
+
   return (
     <>
     <Header />
@@ -99,7 +99,6 @@ const NewSearch = () => {
       </Form>
     </Tab.Container>
     </>
-   
   );
 };
 
