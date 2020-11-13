@@ -11,8 +11,8 @@ from firebase_admin import credentials
 from google.cloud import firestore
 from firebase_admin import auth
 
-# reads text file of inappropriate words and saves to inapp
-with open('inappropriatelist.txt', 'r') as il:
+# reads text file of potentially inappropriate words and saves to inapp
+with open('potentiallyinappropriatelist.txt', 'r') as il:
   inapp = il.readlines()
 
 # connects to our Flask framework
@@ -104,7 +104,7 @@ def store_data():
         for i in data: # i is each tweet in data
             found = False
             tweet = i["text"]
-            for w in inapp: #checks if word in in our inappropriate list
+            for w in inapp: # checks if word in in our potentially inappropriate list
                 word = w.rstrip('\n')
                 tws = " {} ".format(tweet) # tws = tweet with space to ensure first and last word of tweet are checked
                 if " {} ".format(word) in tws.lower():
@@ -113,7 +113,7 @@ def store_data():
                     tweet_ids.append(tid)
                     found = True
                     break
-            if found == False: # if not in inappropriate list, checks if its in user's custom input words list
+            if found == False: # if not in potentially inappropriate list, checks if its in user's custom input words list
                 for w in words.split(","):
                     tws = " {} ".format(tweet) # tws = tweet with space to ensure first and last word of tweet are checked
                     if " {} ".format(w) in tws.lower():
