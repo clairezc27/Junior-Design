@@ -16,7 +16,7 @@ const Home = () => {
           <h3>About</h3>
           <p>As the world becomes increasingly influenced by the information posted on social media platforms, the impact of each and every user’s post increases as well. While social media platforms allow users to spread positive and accurate information, there unfortunately exists inappropriate, inaccurate, and hateful information. Because of this, social media platforms have created algorithms to flag posts that have obviously inappropriate language. But, this is where the social media platforms fail to fix the whole problem.</p>
           <br />
-          <p>The Social Media Mistake Flagger is created to fill in where the social media platforms fail. It aims to flag all inappropriate and hateful language beyond the normal social media platform flagger. This includes searching for unbiased hateful and inappropriate language revolving around gender, race, and hate speech.</p>
+          <p>The Social Media Mistake Flagger is created to fill in where the social media platforms fail. It aims to flag all potentially inappropriate and hateful language beyond the normal social media platform flagger. This includes searching for unbiased hateful and inappropriate language revolving around gender, race, and hate speech.</p>
           <br />
           <p>Our goal, as members of Generation Z, is to create and promote a safe space for everyone on social media platforms starting with Twitter - especially since more people are growing up with social media. Whether you have a big job interview coming up, you recently came into fame, you are looking to help a friend or client, or you are just trying to be an upstanding citizen, the Social Media Mistake Flagger can help.</p>
           <br />
