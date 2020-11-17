@@ -15,7 +15,7 @@ const Account = () => {
   const currUser = useSelector(state => state.auth.currUser);
   const dispatch = useDispatch();
   const history = useHistory();
-  var pwd = "";
+  let pwd = "";
 
   const deleteClicked = () => {
     dispatch(deleteUser(currUser));

@@ -6,7 +6,7 @@ const initialState = {
   isLoggingIn: false,
   isSigningUp: false,
   isDeleting: false,
-  isReseting: false
+  isResetting: false
 };
 
 const usersSlice = createSlice({
@@ -57,15 +57,15 @@ const usersSlice = createSlice({
       state.deleteError = action.payload;
     },
     resetStart(state) {
-      state.isReseting = true;
+      state.isResetting = true;
       delete state.resetError;
     },
     resetSucceeded(state, action) {
-      state.isReseting = false;
+      state.isResetting = false;
       state.currUser = action.payload;
     },
     resetFailed(state, action) {
-      state.isReseting = false;
+      state.isResetting = false;
       state.resetError = action.payload;
     }
   }
