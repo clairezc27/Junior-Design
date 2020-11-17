@@ -51,6 +51,9 @@ const twitterSlice = createSlice({
     clearInfo(state) {
       state.tweets = [];
       state.batches = [];
+    },
+    clearT(state) {
+      state.tweets = [];
     }
   }
 });
@@ -60,7 +63,7 @@ const twitterSlice = createSlice({
 export const {
   searchStart, searchSucceeded, searchFailed, fetchBatchesStart,
   fetchBatchesSucceeded, fetchBatchesFailed, fetchTweetsStart,
-  fetchTweetsSucceeded, fetchTweetsFailed, clearInfo
+  fetchTweetsSucceeded, fetchTweetsFailed, clearInfo, clearT
 } = twitterSlice.actions;
 
 export const searchTweets = (handle, words, email) => async dispatch => {
@@ -95,6 +98,10 @@ export const fetchTweets = (batch) => async dispatch => {
 
 export const clearStore = () => async dispatch => {
   dispatch(clearInfo());
+}
+
+export const clearTweets = () => async dispatch => {
+  dispatch(clearT());
 }
 
 export default twitterSlice.reducer;

@@ -34,7 +34,7 @@ firebase_admin.initialize_app(cred, {
 })
 firebase = Firebase(config)
 
-# method to sign up new users and store in database
+# sign up new users and store in database
 @app.route('/apis/sign-up', methods=['POST'])
 def store_user():
     auth = firebase.auth()    
@@ -44,7 +44,7 @@ def store_user():
         }   
     return jsonify(data), 200
 
-# method to allow users to login
+# allow users to login
 @app.route('/apis/login', methods=['POST'])
 def login():
     auth = firebase.auth()
@@ -58,7 +58,7 @@ def login():
     results = db.child("users").push(data, user['idToken'])
     return jsonify(data), 200
 
-# method to allow users to delete account
+# allow users to delete account
 @app.route('/apis/delete-user', methods=['POST'])
 def delete_user():
     email = request.json['email']
@@ -66,7 +66,7 @@ def delete_user():
     auth.delete_user(user.uid)
     return {}, 200
 
-# method to allow users to modify password
+# allow users to modify password
 @app.route('/apis/reset-user', methods=['POST'])
 def reset_user():
     email = request.json['email']
@@ -80,7 +80,7 @@ def reset_user():
         }   
     return jsonify(data), 200
 
-# method to get flagged tweets
+# retrieve flagged tweets
 @app.route('/apis/search-tweets', methods=['POST'])
 def store_data():
     # gets flagged tweets from api, stores them in db

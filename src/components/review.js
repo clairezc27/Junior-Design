@@ -9,7 +9,7 @@ const Review = () => {
   const date = useParams().date;
   const handle = useParams().handle;
   const tweets = useSelector(state => state.twitter.tweets);
-  console.log("handle: " + handle);
+
   return (
     <>
     <Header />

@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Row, Col } from 'antd';
 import Box from './common/box.js';
 import Header from './common/header.js'
 import { useHistory } from 'react-router-dom';
+import { clearTweets } from "./../features/twitter";
+import { useDispatch } from 'react-redux';
 
 const Dashboard = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearTweets())
+  }, []);
 
   const onClick = () => {
-    console.log("pushed")
     history.push("/new-search");
   }
 

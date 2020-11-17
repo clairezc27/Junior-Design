@@ -12,7 +12,6 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const onFinish = (values) => {
-    console.log("login: " + values.email)
     dispatch(login(values.email, values.password, loginSucceed, loginFailed))
   }
 
@@ -21,7 +20,6 @@ const Login = () => {
   };
   
   const loginFailed = () => {
-    console.log("inside message")
     message.error('Login failed');
   };
 

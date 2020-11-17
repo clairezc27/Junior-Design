@@ -84,7 +84,6 @@ export const login = (email, password, callbackSucceed, callbackFailed) => async
     dispatch(loginSucceeded(response.data.email));
     callbackSucceed();
   } catch (err) {
-    console.log("login failed")
     dispatch(loginFailed(err.response));
     callbackFailed();
   }
