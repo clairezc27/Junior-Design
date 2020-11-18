@@ -27,7 +27,6 @@ In the command line type:
 In the command line type:
 
 - npm run build
-- heroku local
 
 ## Installation of actual application
 - none
@@ -36,7 +35,6 @@ In the command line type:
 
 In the command line type:
 
-- npm run build
 - heroku local
 
 ## Trouble Shooting
