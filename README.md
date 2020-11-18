@@ -1,32 +1,45 @@
-# react-flask-heroku
-Simple bootstrapping code to get you started with a React frontend and Flask backend ready to deploy to Heroku.
+# Twitter Flagger
+A React Flask app that flags potentially inappropriate Twitter posts.
 
-## Dependencies
+## Pre-requisites
 
-python3, npm, Heroku CLI
+- python3
+- npm
 
-## Setup
+## Dependent libraries that must be installed
 
-1. `pip3 install -r requirements.txt`
-2. `npm install`
+- Google SDK
+- Redux
+- Antd
+- React Bootstrap
+- React
+- Heroku CLI
 
-## Running Locally
+## Download instructions
 
-1. `npm run build`
-2. `heroku local`
+In the command line type:
 
-The application will be running at http://localhost:5000.
+- npm install
+- pip3 -r install requirements.txt
 
-## Deploying
+## Build instructions
 
-First, create your app on Heroku. Then:
+In the command line type:
 
-1. `heroku git:remote -a {YOUR_APP_NAME}`
-2. `heroku buildpacks:set heroku/python`
-3. `heroku buildpacks:add --index 1 heroku/nodejs`
-4. `git push heroku master`
+- npm run build
+- heroku local
 
-## Project Structure
+## Installation of actual application
+- none
 
-* Flask server is at `app.py`
-* React components in `src/`
+## Run instructions
+
+In the command line type:
+
+- npm run build
+- heroku local
+
+## Trouble Shooting
+- select Python Interpreter to be 3.8 from IDE settings
+
+
