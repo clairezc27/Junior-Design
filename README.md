@@ -53,7 +53,7 @@ In the command line type:
 
 - heroku local
 
-## Trouble Shooting
+### Trouble Shooting
 - select Python Interpreter to be 3.8 from IDE settings
 
 
