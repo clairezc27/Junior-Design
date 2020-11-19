@@ -54,6 +54,10 @@
   justify-content: center;
 }
 
+.login-error, .signup-error {
+  color: red;
+}
+
 .ant-form-item-control:first-child:not([class^=ant-col-]):not([class*=" ant-col-"]) {
   width: 300px;
 }
