@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Header from './common/header.js';
 import { Form, Input, Button, message } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
@@ -11,16 +12,21 @@ const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  // upon submission of form, dispatch and start login process
   const onFinish = (values) => {
     dispatch(login(values.email, values.password, loginSucceed, loginFailed))
   }
 
+  // if login was successful, direct authenticated user to dashboard
   const loginSucceed = () => {
     history.push("/dashboard");
   };
   
+  // if login was unsuccessful, display approprioate error message
   const loginFailed = () => {
     message.error('Login failed');
+    const errorElement = <p>The email and password you entered did not match our records. Please double-check and try again.</p>
+    ReactDOM.render(errorElement, document.getElementsByClassName('login-error')[0]); 
   };
 
   return (
@@ -33,6 +39,7 @@ const Login = () => {
       onFinish={onFinish}
     >
       <h1 className="Home-header">Login</h1>
+
       <Form.Item name="email"
         rules={[
         {
@@ -57,6 +64,8 @@ const Login = () => {
           placeholder="Password"
         />
       </Form.Item>
+
+      <div className="login-error"></div>
 
       <Form.Item>
         <Button
