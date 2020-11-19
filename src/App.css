@@ -54,8 +54,10 @@
   justify-content: center;
 }
 
-.login-error, .signup-error {
+.login-error, .signup-error, .reset-error {
   color: red;
+  font-size: 10px;
+  text-align: center;
 }
 
 .ant-form-item-control:first-child:not([class^=ant-col-]):not([class*=" ant-col-"]) {
