@@ -80,7 +80,7 @@ const NewSearch = () => {
 
           <Tab.Pane eventKey="2">
             <p>Our application will search your tweets against a comprehensive list our team 
-            of developers created to find any potential inappropriate language. If you would like to add your own words
+            of developers created to find any potentially inappropriate language. If you would like to add your own words
             to be queried for, please enter them below. Leave blank if you do not wish to add any more parameters.</p>
             <Form.Group controlId="additional-search-params-text" name="words" onChange={wordsFinish}>
               <FormControl as="textarea" placeholder="Enter words, separated by commas, you wish to additionally query for." />   
