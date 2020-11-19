@@ -16,7 +16,6 @@ const Signup = () => {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
 
-
   // set the value of "password"
   const passwordFinish = (event) => {
     setPassword(event.target.value);
