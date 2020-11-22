@@ -16,6 +16,8 @@ A React Flask app that flags potentially inappropriate Twitter posts.
 
 ### Known bugs and defects
 
+- User does not receive feedback if wrong password was entered during login or if creating a new account with an existing email address during sign up. 
+
 ## Install Guide
 ### Pre-requisites
 
