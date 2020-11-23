@@ -109,7 +109,7 @@ def store_data():
                 tws = " {} ".format(tweet) # tws = tweet with space to ensure first and last word of tweet are checked
                 if " {} ".format(word) in tws.lower():
                     tid = i["id"]
-                    tweets.append(tweet)
+                    tweets.append(tweet.replace("\'",'’'))
                     tweet_ids.append(tid)
                     found = True
                     break
@@ -118,7 +118,7 @@ def store_data():
                     tws = " {} ".format(tweet) # tws = tweet with space to ensure first and last word of tweet are checked
                     if " {} ".format(w) in tws.lower():
                         tid = i["id"]
-                        tweets.append(tweet)
+                        tweets.append(tweet.replace("\'",'’'))
                         tweet_ids.append(tid)
                         break
 
